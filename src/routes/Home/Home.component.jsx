@@ -1,7 +1,10 @@
+import Navigation from "../../components/Navigation/Navigation.component.jsx";
+
 const Home = () => {
+
     return (
         <div className="homeDiv">
-<p>This is home</p>
+            <Navigation/>
         </div>
     )
 }
