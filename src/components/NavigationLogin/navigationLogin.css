@@ -1,0 +1,12 @@
+.login-form  {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+}
+.input-feild{
+    text-align: center;
+}
+
+.login-form label{
+margin: 0 1rem;
+}

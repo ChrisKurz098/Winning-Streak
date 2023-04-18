@@ -10,8 +10,8 @@ const Navigation = () => {
 
     return (
         <div className="navigationContainer">
-            <a className='navLogo' href='#'>LOGO</a>
-            {(currentUser.userName) ? (<button>LogOut</button>) : (<NavigationLogin/>)}
+            <a className='navLogo' href='#'>WINNING STREAK</a>
+            <NavigationLogin/>
         </div>
     )
 };
