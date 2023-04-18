@@ -12,6 +12,9 @@ import {
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
+import {userDataTemplate} from "./userDataTemplate";
+
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyATXqKeF4xvPV19NOJJpoMebdwK34zKVHE",
@@ -49,13 +52,14 @@ export const createUserDocFromAuth = async (userAuth, additionalInfo) => {
         console.log(userAuth);
         const { displayName, email } = userAuth;
         const createdAt = new Date();
+        const userData = userDataTemplate;
 
         try {
             await setDoc(userDocRef, {
                 displayName,
                 email,
                 createdAt,
-                userData: {goals: {}, streaks: 0},
+                userData,
                 ...additionalInfo,
             });
         } catch (error) {
