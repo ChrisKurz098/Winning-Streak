@@ -4,6 +4,7 @@ import { useState, useContext } from "react";
 import FormInput from '../../components/FormInput/FormInput.component';
 import Button from "../Button/Button.component";
 import './signUpForm.styles.scss';
+import { useNavigate } from "react-router";
 
 const defaultFormInput = {
     displayName: '',
@@ -15,10 +16,10 @@ const defaultFormInput = {
 const SignUpForm = () => {
     const [formInput, setFormInput] = useState(defaultFormInput);
     const { displayName, email, password, confirmPassword } = formInput;
-
+    const navigate = useNavigate();
     const successfullSignUp = () => {
-        setFormInput(defaultFormInput);
-        alert('SignUp success!')
+        alert('SignUp success!');
+        navigate('/');
     };
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -34,27 +35,25 @@ const SignUpForm = () => {
         };
         try {
             const { user } = await createAuthUserWithEmailAndPassword(email, password);
-            await createUserDocFromAuth(user, { displayName });
+            await createUserDocFromAuth(user, {displayName} );
             successfullSignUp();
 
         } catch (error) {
-          if (error.code === 'auth/email-already-in-use') alert('This email already exists as a user');
-          if (error.code === 'auth/weak-password') alert('Password must be at least 6 characters long');
-          console.log(error);
+            if (error.code === 'auth/email-already-in-use') alert('This email already exists as a user');
+            if (error.code === 'auth/weak-password') alert('Password must be at least 6 characters long');
+            console.log(error);
         };
-      
 
-    }
 
-    console.log(formInput);
+    };
 
     return (
         <div className="sign-up-container">
             <h2>Don't have an account</h2>
             <span>Sign up with an email and password</span>
             <form onSubmit={submitHandler}>
-            
-                <FormInput onChange={handleChange}  label={'Display Name'} required type={'text'} name="displayName" value={displayName} />
+
+                <FormInput onChange={handleChange} label={'Display Name'} required type={'text'} name="displayName" value={displayName} />
 
                 <FormInput onChange={handleChange} label={'Email'} required type={'email'} name="email" value={email} />
 

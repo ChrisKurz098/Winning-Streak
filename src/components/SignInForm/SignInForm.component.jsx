@@ -18,21 +18,13 @@ const SignInForm = () => {
 
     const navigate = useNavigate();
 
-    // useEffect( () => {
-    //     async function fetchRedirectResults() {
-    //         const response = await getRedirectResult(auth);
-    //         if (response) createUserDocFromAuth(response.user);
-    //     };
-    //     fetchRedirectResults();
-    // }, [])
     const [formInput, setFormInput] = useState({ email: '', password: '' });
     const { email, password } = formInput;
 
 
     const singInWithGoogle = async () => {
-     await signInWithGooglePopup();
+        const { user } = await signInWithGooglePopup();
      navigate('/');
-      
     };
 
     const signInWithEmailAndPassword = async (event) => {
