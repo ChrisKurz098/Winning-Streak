@@ -7,7 +7,7 @@ const UserStats = () => {
 const {currentUser} = useContext(UserContext);
 if (currentUser) {
     return  (
-        <div className="user-stats-container nowrap">
+        <div className="user-stats-container nowrap dashboard-item">
             <h2>{`${currentUser.displayName}'s Stats`}</h2>
             <span>
                 <ul>

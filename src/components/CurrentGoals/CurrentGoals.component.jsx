@@ -8,7 +8,7 @@ const CurrentGoals = () => {
 const {currentUser} = useContext(UserContext);
 
 return (
-    <div className="current-goals-container nowrap">
+    <div className="current-goals-container nowrap dashboard-item">
         <h2>Current Goals</h2>
         <span>
             <ol>
