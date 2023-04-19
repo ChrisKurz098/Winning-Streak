@@ -13,7 +13,7 @@ export const UserContext = createContext({
 
 export const UserProvider = ({ children }) => {
     const [userAuthId, setUserAuthId] = useState(null)
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState(false);
     const value = { currentUser, setCurrentUser, userAuthId, setUserAuthId };
 
     useEffect(() => {

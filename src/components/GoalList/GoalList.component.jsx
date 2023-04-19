@@ -7,11 +7,11 @@ const GoalList = () => {
 const {currentUser} = useContext(UserContext);
 
 return (
-    <div className="goal-list-container">
+    <div className="goal-list-container nowrap">
         <h2>Goal List</h2>
         <span>
             <ol>
-                { (currentUser !== null) ? (currentUser.userData.goals.map((goal, i) => (<li key={`${goal.title}-${i}`}>{goal.title}</li>))) : (<li>Loading Goals...</li>)}
+                { (currentUser) ? (currentUser.userData.goals.map((goal, i) => (<li key={`${goal.title}-${i}`}>{goal.title}</li>))) : (<li>Loading Goals...</li>)}
             </ol>
         </span>
 

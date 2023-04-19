@@ -5,13 +5,13 @@ import "./userStats.styles.scss"
 
 const UserStats = () => {
 const {currentUser} = useContext(UserContext);
-if (currentUser !== null) {
+if (currentUser) {
     return  (
-        <div className="user-stats-container">
+        <div className="user-stats-container nowrap">
             <h2>{`${currentUser.displayName}'s Stats`}</h2>
             <span>
                 <ul>
-                    { (currentUser !== null) ? Object.entries(currentUser.userData).map(([key, value], i) => {
+                    { (currentUser) ? Object.entries(currentUser.userData).map(([key, value], i) => {
                      return (key !== "goals") ?  (<li key={`${key}-${i}`}>{`${key}: ${value}`}</li>) : ('');
                     }) 
                     :

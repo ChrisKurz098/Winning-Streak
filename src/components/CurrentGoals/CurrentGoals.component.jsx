@@ -8,11 +8,11 @@ const CurrentGoals = () => {
 const {currentUser} = useContext(UserContext);
 
 return (
-    <div className="current-goals-container">
+    <div className="current-goals-container nowrap">
         <h2>Current Goals</h2>
         <span>
             <ol>
-                { (currentUser !== null) ? currentUser.userData.goals.map((goal, i) => {
+                { (currentUser) ? currentUser.userData.goals.map((goal, i) => {
                     
                     //decide if goal should be displayed. Does it need to be completed?
                     return (<li key={`${goal.title}-${i}`}>{goal.title}</li>)

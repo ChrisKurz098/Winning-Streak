@@ -12,7 +12,8 @@ const NavigationBar = () => {
   
     const handleLogOut = () => {
         signOutUser();
-        navigate("/");
+        setCurrentUser(false);
+        navigate("/signin");
     }
 
     const changeUserData = (event) => {
