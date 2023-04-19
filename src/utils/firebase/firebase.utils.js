@@ -10,10 +10,19 @@ import {
     onAuthStateChanged,
 } from "firebase/auth";
 
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    collection,
+    query,
+    where,
+    getDocs,
+    updateDoc,
+} from "firebase/firestore";
 
-import {userDataTemplate} from "./userDataTemplate";
-
+import { userDataTemplate } from "./userDataTemplate";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -67,6 +76,30 @@ export const createUserDocFromAuth = async (userAuth, additionalInfo) => {
             console.log(error);
         }
     }
+};
+
+
+export const getRemoteUserData = async (userEmail) => {
+    const usersDbRef = collection(db, "users");
+
+    // Create a query against the collection.
+    const q = query(usersDbRef, where("email", "==", `${userEmail}`));
+    const querySnapshot = await getDocs(q);
+
+    let data;
+    querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+       data = doc.data();
+    });
+    return data;
+};
+
+export const updateRemoteUserData = async (userAuth, updatedData) => {
+    console.log('Updating....', updatedData)
+        await updateDoc(doc(db, "users", userAuth), {
+           userData: updatedData
+         });
+
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
