@@ -1,3 +1,4 @@
+import CurrentGoals from "../../components/CurrentGoals/CurrentGoals.component.jsx";
 import GolaList from "../../components/GoalList/GoalList.component.jsx";
 
 import "./home.styles.scss"
@@ -6,15 +7,16 @@ const Home = () => {
 
 
   return (
-     <div className="home-container">
+    <div className="home-container">
       <span className="goals-container">
-      <GolaList/>
+        <CurrentGoals />
+        <GolaList />
       </span>
-      
+
       <span className="stats-calander-container">
 
       </span>
-     </div>
+    </div>
   );
 };
 
