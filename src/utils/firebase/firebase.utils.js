@@ -22,7 +22,7 @@ import {
     updateDoc,
 } from "firebase/firestore";
 
-import { userDataTemplate } from "./userDataTemplate";
+import { userDataTemplate } from "../userData/userDataFunctions";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -79,6 +79,8 @@ export const createUserDocFromAuth = async (userAuth, additionalInfo) => {
 };
 
 
+//----Update and read user data----//
+
 export const getRemoteUserData = async (userEmail) => {
     const usersDbRef = collection(db, "users");
 
@@ -101,6 +103,8 @@ export const updateRemoteUserData = async (userAuth, updatedData) => {
          });
 
 };
+
+//----------------------------//
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
     if (!email || !password) return;
