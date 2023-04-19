@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { signOutUser, updateRemoteUserData } from "../../utils/firebase/firebase.utils";
+import { mockGoals } from "../../utils/userData/userDataFunctions";
 
 import './navigation.styles.scss';
 
@@ -16,12 +17,12 @@ const NavigationBar = () => {
 
     const changeUserData = (event) => {
         event.preventDefault()
-
+        console.log(mockGoals)
         const newPoints = currentUser.userData.points+100;
         setCurrentUser(old => ({...old, userData: {
             points: newPoints,
             rank: "C",
-            goals: {},
+            goals: mockGoals,
 
         }}))
     }

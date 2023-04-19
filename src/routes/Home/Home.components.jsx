@@ -1,5 +1,6 @@
 import CurrentGoals from "../../components/CurrentGoals/CurrentGoals.component.jsx";
 import GolaList from "../../components/GoalList/GoalList.component.jsx";
+import UserStats from "../../components/userStats/UserStats.component.jsx";
 
 import "./home.styles.scss"
 
@@ -14,7 +15,7 @@ const Home = () => {
       </span>
 
       <span className="stats-calander-container">
-
+        <UserStats />
       </span>
     </div>
   );

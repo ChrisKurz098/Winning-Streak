@@ -11,7 +11,7 @@ return (
         <h2>Goal List</h2>
         <span>
             <ol>
-                { (currentUser !== null) ? Object.entries(currentUser.userData.goals).map(([key, value], i) => (<li key={`${key}-${i}`}>{key}</li>)) : (<li>Loading Goals...</li>)}
+                { (currentUser !== null) ? (currentUser.userData.goals.map((goal, i) => (<li key={`${goal.title}-${i}`}>{goal.title}</li>))) : (<li>Loading Goals...</li>)}
             </ol>
         </span>
 

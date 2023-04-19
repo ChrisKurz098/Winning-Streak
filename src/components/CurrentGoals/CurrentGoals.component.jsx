@@ -12,10 +12,10 @@ return (
         <h2>Current Goals</h2>
         <span>
             <ol>
-                { (currentUser !== null) ? Object.entries(currentUser.userData.goals).map(([key, value], i) => {
+                { (currentUser !== null) ? currentUser.userData.goals.map((goal, i) => {
                     
                     //decide if goal should be displayed. Does it need to be completed?
-                    return (<li key={`${key}-${i}`}>{key}</li>)
+                    return (<li key={`${goal.title}-${i}`}>{goal.title}</li>)
                 }) : (<li>...</li>)
                 }
             </ol>
