@@ -1,4 +1,7 @@
+@import "../../utils/scssVars/variables.scss";
+
 .navigation {
+    border-bottom: .5rem solid $fontColorDark ;
     width: 100%;
     display: flex;
     justify-content: space-between;

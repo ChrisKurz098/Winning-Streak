@@ -1,0 +1,13 @@
+@import "../../utils/scssVars/variables.scss";
+
+.home-container{
+    display: flex;
+
+    .goals-container{
+        width: 35%;
+
+    };
+    .stats-calander-container{
+        width: 65%
+    }
+}

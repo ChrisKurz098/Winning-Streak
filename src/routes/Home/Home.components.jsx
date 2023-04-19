@@ -1,10 +1,20 @@
+import GolaList from "../../components/GoalList/GoalList.component.jsx";
 
+import "./home.styles.scss"
 
 const Home = () => {
 
 
   return (
-      <p>This is the home page!!</p>
+     <div className="home-container">
+      <span className="goals-container">
+      <GolaList/>
+      </span>
+      
+      <span className="stats-calander-container">
+
+      </span>
+     </div>
   );
 };
 
