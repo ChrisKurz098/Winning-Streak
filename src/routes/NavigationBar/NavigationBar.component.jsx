@@ -53,9 +53,6 @@ const NavigationBar = () => {
                         </Link>
                     )}
                 </div>
-
-                <button onClick={testUpdate}>Test Update Data</button>
-                <button onClick={changeUserData}>Change Data</button>
             </nav>
 
             <Outlet />

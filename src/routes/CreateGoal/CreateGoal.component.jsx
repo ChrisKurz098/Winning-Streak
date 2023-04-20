@@ -36,8 +36,7 @@ const CreateGoal = () => {
    (index === 7) ?   goalDays = [false,false,false,false,false,false,false,true] : goalDays[7] = false;
    goalDays[index] = checked;
    setFormInput(old => ({ ...old, goalDays: goalDays }));
-console.log(goalDays, index)
-  
+
     };
 
 
