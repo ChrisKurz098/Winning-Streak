@@ -5,7 +5,7 @@ import { createUserDocFromAuth, onAuthStateChangedListener, getRemoteUserData, u
 export const UserContext = createContext({
     userAuth: null,
     setUserAuth: () => null,
-    currentUser: null,
+    currentUser: false,
     setCurrentUser: () => null,
 
 
