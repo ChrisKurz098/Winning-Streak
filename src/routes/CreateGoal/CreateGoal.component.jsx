@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react'
 import './createGoal.styles.scss'
 
+import { goalTypes } from '../../utils/userData/userDataFunctions';
 import { UserContext } from '../../contexts/user.context'
 import FormInput from '../../components/FormInput/FormInput.component';
 import Button from '../../components/Button/Button.component';
@@ -11,6 +12,7 @@ const CreateGoal = () => {
 
 
     const [formInput, setFormInput] = useState({
+        typeSelect: 'other',
         title: '',
         description: '',
         weeklyInterval: 1,
@@ -18,6 +20,7 @@ const CreateGoal = () => {
         goalDays: [false, false, false, false, false, false, false, true],
     });
     let {
+        typeSelect,
         title,
         description,
         weeklyInterval,
@@ -29,31 +32,46 @@ const CreateGoal = () => {
         setFormInput(old => ({ ...old, [name]: value }));
     };
 
-    const handleGoalDayChange = (event) => {
+    const handleDropDownChange = (event) => {
+        const e = event.target;
+        const { options } = e;
+        const newOption = options[e.selectedIndex].value;
+        setFormInput(old => ({ ...old, typeSelect: newOption }));
+    };
 
+    const handleGoalDayChange = (event) => {
         const { id, checked } = event.target;
         const index = parseInt(id);
         (index === 7) ? goalDays = [false, false, false, false, false, false, false, true] : goalDays[7] = false;
         goalDays[index] = checked;
         setFormInput(old => ({ ...old, goalDays: goalDays }));
-
     };
 
 
     const submitGoal = () => {
-        let updatedUser = {...currentUser};
+        let updatedUser = { ...currentUser };
 
         updatedUser.goals.push(formInput);
         setCurrenUser(updatedUser);
     }
+
     return (
         <div className='create-goal-container'>
             <h2>Create a new goal</h2>
             <form onSubmit={submitGoal}>
+                <label htmlFor='type-select'>Goal Type</label>
+                <select id='type-select' name='typeSelect' onChange={handleDropDownChange}>
+                    {
+                        goalTypes.map((type, i) => {
+                            return (
+                                <option key={`${type}-${i}`} value={type}>{`${type}`}</option>
+                            )
+                        })
+                    }
+                </select>
                 <FormInput label='Title' required value={title} name='title' onChange={handleChange} />
                 <FormInput label='Description' required value={description} name='description' onChange={handleChange} />
                 <FormInput label='Weekly Interval' type='number' required value={weeklyInterval} name='weeklyInterval' onChange={handleChange} />
-                <FormInput label='Which days?' required value={''} name='goalDays' />
                 <div className='goal-days-container'>
                     <input id={"0"} type='checkbox' checked={goalDays[0]} onChange={handleGoalDayChange} />
                     <label htmlFor='0'>Monday</label>

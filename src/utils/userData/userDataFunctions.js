@@ -38,6 +38,7 @@ export const mockGoals = [
 ];
 
 export const goalTypes = [
+    "Other",
     "Community Involvement",
     "Creativity",
     "Educational",
