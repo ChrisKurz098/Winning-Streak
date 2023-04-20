@@ -15,7 +15,7 @@ const CreateGoal = () => {
         description: '',
         weeklyInterval: 1,
         numberOfDays: 1,
-        goalDays: [false,false,false,false,false,false,false,true],
+        goalDays: [false, false, false, false, false, false, false, true],
     });
     let {
         title,
@@ -29,19 +29,22 @@ const CreateGoal = () => {
         setFormInput(old => ({ ...old, [name]: value }));
     };
 
-   const handleGoalDayChange = (event) => {
-    
-    const { id, checked } = event.target;
-    const index = parseInt(id);
-   (index === 7) ?   goalDays = [false,false,false,false,false,false,false,true] : goalDays[7] = false;
-   goalDays[index] = checked;
-   setFormInput(old => ({ ...old, goalDays: goalDays }));
+    const handleGoalDayChange = (event) => {
+
+        const { id, checked } = event.target;
+        const index = parseInt(id);
+        (index === 7) ? goalDays = [false, false, false, false, false, false, false, true] : goalDays[7] = false;
+        goalDays[index] = checked;
+        setFormInput(old => ({ ...old, goalDays: goalDays }));
 
     };
 
 
     const submitGoal = () => {
-        console.log('Submit Goal')
+        let updatedUser = {...currentUser};
+
+        updatedUser.goals.push(formInput);
+        setCurrenUser(updatedUser);
     }
     return (
         <div className='create-goal-container'>
@@ -50,23 +53,23 @@ const CreateGoal = () => {
                 <FormInput label='Title' required value={title} name='title' onChange={handleChange} />
                 <FormInput label='Description' required value={description} name='description' onChange={handleChange} />
                 <FormInput label='Weekly Interval' type='number' required value={weeklyInterval} name='weeklyInterval' onChange={handleChange} />
-                <FormInput label='Which days?' required value={''} name='goalDays'/>
+                <FormInput label='Which days?' required value={''} name='goalDays' />
                 <div className='goal-days-container'>
-                    <input id={"0"} type='checkbox' checked={goalDays[0]}  onChange={handleGoalDayChange} />
+                    <input id={"0"} type='checkbox' checked={goalDays[0]} onChange={handleGoalDayChange} />
                     <label htmlFor='0'>Monday</label>
-                    <input id={"1"} type='checkbox'  checked={goalDays[1]} onChange={handleGoalDayChange} />
+                    <input id={"1"} type='checkbox' checked={goalDays[1]} onChange={handleGoalDayChange} />
                     <label htmlFor='1'>Tuesday</label>
-                    <input id={"2"} type='checkbox'  checked={goalDays[2]} onChange={handleGoalDayChange} />
+                    <input id={"2"} type='checkbox' checked={goalDays[2]} onChange={handleGoalDayChange} />
                     <label htmlFor='2'>Wednsday</label>
-                    <input id={"3"} type='checkbox'  checked={goalDays[3]} onChange={handleGoalDayChange} />
+                    <input id={"3"} type='checkbox' checked={goalDays[3]} onChange={handleGoalDayChange} />
                     <label htmlFor='3'>Thursday</label>
-                    <input id={"4"} type='checkbox'  checked={goalDays[4]} onChange={handleGoalDayChange} />
+                    <input id={"4"} type='checkbox' checked={goalDays[4]} onChange={handleGoalDayChange} />
                     <label htmlFor='4'>Friday</label>
                     <input id={"5"} type='checkbox' checked={goalDays[5]} onChange={handleGoalDayChange} />
                     <label htmlFor='5'>Saturday</label>
-                    <input id={"6"} type='checkbox' checked={goalDays[6]}  onChange={handleGoalDayChange} />
+                    <input id={"6"} type='checkbox' checked={goalDays[6]} onChange={handleGoalDayChange} />
                     <label htmlFor='6'>Sunday</label>
-                    <input id={"7"} type='checkbox' checked={goalDays[7]}  onChange={handleGoalDayChange} />
+                    <input id={"7"} type='checkbox' checked={goalDays[7]} onChange={handleGoalDayChange} />
                     <label htmlFor='7'>Any Day</label>
                 </div>
 
