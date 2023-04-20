@@ -5,37 +5,59 @@ export const userDataTemplate = {
 };
 
 export const mockGoals = [
-        {
-            title: "Eat pizza",
-            startDate: new Date(), 
-            currentStreak: 3, 
-            missedGoalCounter: 0, 
-            totalMissedGoalCounter: 0,
-            weeklyInterval: 1,
-            numberOfDays: 1, 
-            goalDays: [0]
-        },
-        {
-            title: "Jump into a puddle",
-            startDate: new Date(), 
-            currentStreak: 7, 
-            missedGoalCounter: 0, 
-            totalMissedGoalCounter: 0,
-            weeklyInterval: 3,
-            numberOfDays: 1, 
-            goalDays: [1]
-        },
-        {
-            title: "Watch Terminator 2 again",
-            startDate: new Date(), 
-            currentStreak: 7, 
-            missedGoalCounter: 0, 
-            totalMissedGoalCounter: 0,
-            weeklyInterval: 1,
-            numberOfDays: 7, 
-            goalDays: [0,0,0,0,0,0,0]
-        }
-    ];
+    {
+        title: "Eat pizza",
+        startDate: new Date(),
+        currentStreak: 3,
+        missedGoalCounter: 0,
+        totalMissedGoalCounter: 0,
+        weeklyInterval: 1,
+        numberOfDays: 1,
+        goalDays: [0],
+    },
+    {
+        title: "Jump into a puddle",
+        startDate: new Date(),
+        currentStreak: 7,
+        missedGoalCounter: 0,
+        totalMissedGoalCounter: 0,
+        weeklyInterval: 3,
+        numberOfDays: 1,
+        goalDays: [1],
+    },
+    {
+        title: "Watch Terminator 2 again",
+        startDate: new Date(),
+        currentStreak: 7,
+        missedGoalCounter: 0,
+        totalMissedGoalCounter: 0,
+        weeklyInterval: 1,
+        numberOfDays: 7,
+        goalDays: [0, 0, 0, 0, 0, 0, 0],
+    },
+];
+
+export const goalTypes = [
+    "Community Involvement",
+    "Creativity",
+    "Educational",
+    "Environment",
+    "Exercise",
+    "Finance",
+    "Fitnes",
+    "Health",
+    "Hobbies",
+    "Home",
+    "Outdoors",
+    "Politics",
+    "Relationships",
+    "Self-Care",
+    "Social Life",
+    "Spirituality",
+    "Technology",
+    "Time Management",
+    "Work",
+];
 
 /*
 usersData example:
@@ -57,4 +79,3 @@ userData: {
     }
 }
 */
-
