@@ -1,6 +1,18 @@
 @import "../../utils/scssVars/variables.scss";
 
+
+.create-goal-container{
+    display: flex;
+    justify-content: center;
+
+}
+.create-goal-header{
+    font-size: 3rem;
+}
 .goal-days-container{
+    display: grid;
+    grid-template-columns: auto auto auto auto  ;
+max-width: 700px;
     font-size: 1.5rem;
 
     label{
@@ -14,11 +26,36 @@
     }
 }
 
+.day-container{
+    display: inline-block;
+    text-align:left;
+    width: 150px;
+    flex-grow: 50;
+}
+
 .buttons-container{
     border-top: 1px solid $fontColorDark;
     margin: 1.3rem 0;
     button{
         margin: auto;
         margin-top: 1rem;
+    }
+}
+
+@media only screen and (max-width: 600px){
+
+    .goal-days-container{
+
+        display: grid;
+        grid-template-columns: auto auto auto  ;
+    }
+}
+
+@media only screen and (max-width: 425px){
+
+    .goal-days-container{
+
+        display: grid;
+        grid-template-columns: auto auto   ;
     }
 }

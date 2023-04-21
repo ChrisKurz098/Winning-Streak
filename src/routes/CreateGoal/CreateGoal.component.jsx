@@ -8,7 +8,7 @@ import Button from '../../components/Button/Button.component';
 
 
 const CreateGoal = () => {
-    const { currentUser, setCurrenUser } = useContext(UserContext)
+    const { currentUser, setCurrentUser } = useContext(UserContext)
 
 
     const [formInput, setFormInput] = useState({
@@ -19,8 +19,9 @@ const CreateGoal = () => {
         numberOfDays: 1,
         goalDays: [false, false, false, false, false, false, false, true],
     });
+
+    const days = ["Monday", "Tuesday", "Wednsday", "Thursday", "Friday", "Saturday", "Sunday", "Any Day"]
     let {
-        typeSelect,
         title,
         description,
         weeklyInterval,
@@ -48,17 +49,21 @@ const CreateGoal = () => {
     };
 
 
-    const submitGoal = () => {
+    const submitGoal = (event) => {
+        event.preventDefault();
         let updatedUser = { ...currentUser };
-
-        updatedUser.goals.push(formInput);
-        setCurrenUser(updatedUser);
+console.log(updatedUser);
+        updatedUser.userData.goals.push(formInput);
+        console.log(updatedUser)
+        setCurrentUser(updatedUser);
     }
 
     return (
+        <>
+   
         <div className='create-goal-container'>
-            <h2>Create a new goal</h2>
             <form onSubmit={submitGoal}>
+            <h2 className='create-goal-header'>Create a new goal:</h2>
                 <label htmlFor='type-select'>Goal Type</label>
                 <select id='type-select' name='typeSelect' onChange={handleDropDownChange}>
                     {
@@ -73,22 +78,18 @@ const CreateGoal = () => {
                 <FormInput label='Description' required value={description} name='description' onChange={handleChange} />
                 <FormInput label='Weekly Interval' type='number' required value={weeklyInterval} name='weeklyInterval' onChange={handleChange} />
                 <div className='goal-days-container'>
-                    <input id={"0"} type='checkbox' checked={goalDays[0]} onChange={handleGoalDayChange} />
-                    <label htmlFor='0'>Monday</label>
-                    <input id={"1"} type='checkbox' checked={goalDays[1]} onChange={handleGoalDayChange} />
-                    <label htmlFor='1'>Tuesday</label>
-                    <input id={"2"} type='checkbox' checked={goalDays[2]} onChange={handleGoalDayChange} />
-                    <label htmlFor='2'>Wednsday</label>
-                    <input id={"3"} type='checkbox' checked={goalDays[3]} onChange={handleGoalDayChange} />
-                    <label htmlFor='3'>Thursday</label>
-                    <input id={"4"} type='checkbox' checked={goalDays[4]} onChange={handleGoalDayChange} />
-                    <label htmlFor='4'>Friday</label>
-                    <input id={"5"} type='checkbox' checked={goalDays[5]} onChange={handleGoalDayChange} />
-                    <label htmlFor='5'>Saturday</label>
-                    <input id={"6"} type='checkbox' checked={goalDays[6]} onChange={handleGoalDayChange} />
-                    <label htmlFor='6'>Sunday</label>
-                    <input id={"7"} type='checkbox' checked={goalDays[7]} onChange={handleGoalDayChange} />
-                    <label htmlFor='7'>Any Day</label>
+                    {
+                        days.map((day, i) => {
+                            return (
+                                <div key={`${day}${i}`} className='day-container nowrap'>
+                                <input id={`${i}`} type='checkbox' checked={goalDays[i]} onChange={handleGoalDayChange} />
+                                <label htmlFor={`${i}`}>{`${day}`}</label>
+                                </div>
+                            )
+                        })
+                    }
+
+  
                 </div>
 
                 <div className="buttons-container">
@@ -96,6 +97,7 @@ const CreateGoal = () => {
                 </div>
             </form>
         </div>
+        </>
     )
 };
 
