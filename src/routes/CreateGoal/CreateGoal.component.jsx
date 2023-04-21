@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react'
 import './createGoal.styles.scss'
 
+
 import { goalTypes } from '../../utils/userData/userDataFunctions';
 import { UserContext } from '../../contexts/user.context'
 import FormInput from '../../components/FormInput/FormInput.component';
@@ -73,7 +74,7 @@ const CreateGoal = () => {
             <div className='create-goal-container'>
                 <form onSubmit={submitGoal}>
                     <h2 className='create-goal-header'>Create a new goal:</h2>
-                    <label htmlFor='type-select'>Goal Type</label>
+                    <label htmlFor='type-select' className='goal-type-label'>Goal Type</label>
                     <select id='type-select' name='typeSelect' onChange={handleDropDownChange}>
                         {
                             goalTypes.map((type, i) => {

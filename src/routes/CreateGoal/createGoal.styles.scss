@@ -1,61 +1,74 @@
 @import "../../utils/scssVars/variables.scss";
 
+$sub-color: grey;
+$main-color: black;
 
-.create-goal-container{
+.create-goal-container {
     display: flex;
     justify-content: center;
-
 }
-.create-goal-header{
+.create-goal-header {
     font-size: 3rem;
 }
-.goal-days-container{
+.goal-type-label {
+    display: block;
+    width: 100%;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $sub-color;
+    color: $sub-color;
+    font-size: 2rem;
+    font-weight: normal;
+    pointer-events: none;
+}
+#type-select{
+    font-size: 1.3rem;
+    height:3rem;
+    width: 100%;
+    color: $sub-color;
+}
+.goal-days-container {
     display: grid;
-    grid-template-columns: auto auto auto auto  ;
-max-width: 700px;
+    grid-template-columns: auto auto auto auto;
+    max-width: 700px;
     font-size: 1.5rem;
 
-    label{
+    label {
         margin-right: 1rem;
-    };
+    }
 
-    input{
+    input {
         height: 1.2rem;
         width: 3rem;
-        margin-right: -.3rem;
+        margin-right: -0.3rem;
     }
 }
 
-.day-container{
+.day-container {
     display: inline-block;
-    text-align:left;
+    text-align: left;
     width: 150px;
     flex-grow: 50;
 }
 
-.buttons-container{
+.buttons-container {
     border-top: 1px solid $fontColorDark;
     margin: 1.3rem 0;
-    button{
+    button {
         margin: auto;
         margin-top: 1rem;
     }
 }
 
-@media only screen and (max-width: 600px){
-
-    .goal-days-container{
-
+@media only screen and (max-width: 600px) {
+    .goal-days-container {
         display: grid;
-        grid-template-columns: auto auto auto  ;
+        grid-template-columns: auto auto auto;
     }
 }
 
-@media only screen and (max-width: 425px){
-
-    .goal-days-container{
-
+@media only screen and (max-width: 425px) {
+    .goal-days-container {
         display: grid;
-        grid-template-columns: auto auto   ;
+        grid-template-columns: auto auto;
     }
 }
