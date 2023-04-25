@@ -73,7 +73,9 @@ const CreateGoal = () => {
             <div className='create-goal-container'>
                 <form onSubmit={submitGoal}>
                     <h2 className='create-goal-header'>Create a new goal:</h2>
+                  
                     <label htmlFor='type-select' className='goal-type-label'>Goal Type</label>
+                    <span className='select-container'>
                     <img alt='goal icon' src={`icons/${formInput.typeSelect}.png`} />
                     <select id='type-select' name='typeSelect' onChange={handleDropDownChange}>
                         {
@@ -84,6 +86,7 @@ const CreateGoal = () => {
                             })
                         }
                     </select>
+                    </span>
                     <FormInput label='Title' required value={title} name='title' onChange={handleChange} />
                     <FormInput label='Description' required value={description} name='description' onChange={handleChange} />
                     <FormInput label='Weekly Interval' type='number' required value={weeklyInterval} name='weeklyInterval' onChange={handleChange} />
