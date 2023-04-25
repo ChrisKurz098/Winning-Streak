@@ -74,6 +74,7 @@ const CreateGoal = () => {
                 <form onSubmit={submitGoal}>
                     <h2 className='create-goal-header'>Create a new goal:</h2>
                     <label htmlFor='type-select' className='goal-type-label'>Goal Type</label>
+                    <img alt='goal icon' src={`icons/${formInput.typeSelect}.png`} />
                     <select id='type-select' name='typeSelect' onChange={handleDropDownChange}>
                         {
                             goalTypes.map((type, i) => {

@@ -18,7 +18,7 @@ const GoalListItems = () => {
         console.log('delete goal index: ', i)
         setCurrentUser(old => {
             old.userData.goals.splice(i, 1);
-            return {...old}
+            return { ...old }
         })
     }
 
@@ -30,20 +30,22 @@ const GoalListItems = () => {
             <>
                 {currentUser.userData.goals.map((goal, i) => {
                     return (
-                        <div key={`${goal.title}-${i}`}
+                        <li key={`${goal.title}-${i}`}
                             onClick={() => { handleMouseClick(i); }}
                             className={`goal-item-container ${(selectedGoal === i) ? "selected-item" : ""}`}>
                             <button type="button" onClick={() => { handleDelete(i) }} style={{ "display": selectDisplayToggle(i) }}>delete</button>
+                            <span className="min-view-container">
+                                <img alt='goal icon' src={`icons/${goal.typeSelect}.png`} />
+                                <h3
+                                    className="goal-list-item"
+                                >{goal.title}</h3>
+                            </span>
 
-                            <li
-                                className="goal-list-item"
-                            >{goal.title}</li>
-
-                            <span className="selected-goal-info-container"
+                            <span className="max-goal-container"
                                 style={{ "display": selectDisplayToggle(i) }}>
                                 <p>Description: {goal.description}</p>
                             </span>
-                        </div>
+                        </li>
                     );
 
                 })}

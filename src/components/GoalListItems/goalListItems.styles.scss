@@ -1,15 +1,27 @@
 .goal-item-container {
+    display: flex;
+
     border: 1px dotted red;
     position: relative;
+    flex-flow: column;
 
     &:hover {
         border: 2px dotted rgb(4, 0, 255);
     }
 
+    img{
+        height: 6rem;
+        margin: 1rem;
+    }
     button {
         position: absolute;
         top: 0;
         right: 1rem;
     }
+}
+
+.min-view-container{
+    display: flex;
+    align-items: center;
 }
 
