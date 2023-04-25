@@ -22,17 +22,22 @@ export const UserProvider = ({ children }) => {
                 await createUserDocFromAuth(user);
                 setUserAuthId(user.uid);
                 const dbUser = await getRemoteUserData(user.email);
-                setCurrentUser({...dbUser});
+                setCurrentUser({ ...dbUser });
             }
-
-
-
-
         });
-
         return unsubscribe;
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        const updaeDatabase = async () => {
+            await updateRemoteUserData(userAuthId, currentUser.userData);
+        };
+
+        updaeDatabase();
+
+    }, [currentUser]);
 
     console.log('curUser: ', currentUser)
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>
-}
+};
+

@@ -1,2 +1,12 @@
 @import "../../utils/scssVars/variables.scss";
 
+.user-stats-container{
+    span{
+        display: flex;
+        justify-content:center;
+     
+    }
+}
+h3{
+    font-size: 2rem;
+}

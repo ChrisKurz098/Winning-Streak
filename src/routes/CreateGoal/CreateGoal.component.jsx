@@ -63,7 +63,6 @@ const CreateGoal = () => {
         updatedUser.userData.goals.push(formInput);
         console.log(updatedUser)
         setCurrentUser(updatedUser);
-        await updateRemoteUserData(userAuthId, currentUser.userData);
         navigate('/');
 
     }

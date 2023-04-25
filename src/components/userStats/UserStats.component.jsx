@@ -5,20 +5,18 @@ import "./userStats.styles.scss"
 
 const UserStats = () => {
 const {currentUser} = useContext(UserContext);
+
+const {points, rank, goals} = currentUser.userData;
 if (currentUser) {
     return  (
         <div className="user-stats-container nowrap dashboard-item">
             <h2>{`${currentUser.displayName}'s Stats`}</h2>
-            <span>
-                <ul>
-                    { (currentUser) ? Object.entries(currentUser.userData).map(([key, value], i) => {
-                     return (key !== "goals") ?  (<li key={`${key}-${i}`}>{`${key}: ${value}`}</li>) : ('');
-                    }) 
-                    :
-                     (<li>Loading Stats...</li>)}
-                     <li>{`Total Goals: ${currentUser.userData.goals.length}`}</li>
-                </ul>
-            </span>
+          <h3>{`Score: ${points}`}</h3>
+          <span>
+          <h3>Rank:</h3>
+          <h1>{`${rank}`}</h1>
+          </span>
+          
     
         </div>
     );
