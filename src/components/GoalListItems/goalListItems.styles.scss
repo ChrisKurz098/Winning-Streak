@@ -29,7 +29,7 @@
         align-items: center;
         width: 33%;
         align-self: center;
-        p{
+        p {
             margin: 0 0 0 3rem;
             font-size: 3rem;
         }
@@ -40,6 +40,31 @@
     margin: 0 3rem;
     transform-origin: top center;
     animation: maxViewopen 0.5s;
+
+    .day-box-container {
+        display: flex;
+        justify-content: space-between;
+        border: 2px solid black;
+        margin-bottom: 2rem;
+
+        .day-box {
+            border: 2px solid black;
+            width: 100%;
+            text-align: center;
+        }
+        .selected-day {
+            background-color: rgb(65, 65, 65);
+            color: white;
+        }
+    
+    }
+    .any-day-indicator {
+        margin: 0 0 .5rem 0;
+        padding: 0;
+        text-align: center;
+       
+        width: 100%;
+    }
 }
 
 @keyframes maxViewopen {

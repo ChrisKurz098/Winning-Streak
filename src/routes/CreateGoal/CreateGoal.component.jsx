@@ -6,7 +6,7 @@ import { goalTypes } from '../../utils/userData/userDataFunctions';
 import { UserContext } from '../../contexts/user.context'
 import FormInput from '../../components/FormInput/FormInput.component';
 import Button from '../../components/Button/Button.component';
-import { updateRemoteUserData } from '../../utils/firebase/firebase.utils';
+import { daysArray } from '../../utils/userData/userDataFunctions';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -23,10 +23,15 @@ const CreateGoal = () => {
         description: '',
         weeklyInterval: 1,
         numberOfDays: 1,
+        startDate: new Date(Date.now()).toString(),
+        currentStreak: 0,
+        missedGoalCounter: 0,
+        totalMissedGoalCounter: 0,
+        numberOfDays: 1,
         goalDays: [false, false, false, false, false, false, false, true],
     });
 
-    const days = ["Monday", "Tuesday", "Wednsday", "Thursday", "Friday", "Saturday", "Sunday", "Any Day"]
+   
     let {
         title,
         description,
@@ -92,7 +97,7 @@ const CreateGoal = () => {
                     <FormInput label='Weekly Interval' type='number' required value={weeklyInterval} name='weeklyInterval' onChange={handleChange} />
                     <div className='goal-days-container'>
                         {
-                            days.map((day, i) => {
+                            daysArray.map((day, i) => {
                                 return (
                                     <div key={`${day}${i}`} className='day-container nowrap'>
                                         <input id={`${i}`} type='checkbox' checked={goalDays[i]} onChange={handleGoalDayChange} />

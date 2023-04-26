@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState, useRef } from "react"
 import { UserContext } from "../../contexts/user.context";
 
+import { daysArray } from "../../utils/userData/userDataFunctions";
+
 import "./goalListItems.styles.scss";
 
 const GoalListItems = () => {
@@ -28,13 +30,14 @@ const GoalListItems = () => {
     }
 
     useEffect(() => {
-        if (selectedGoal !==null) selectedEl.current.scrollIntoView({behavior : 'smooth', block: 'start', inline: 'start'});
+        if (selectedGoal !== null) selectedEl.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
     }, [selectedGoal]);
 
     if (currentUser) {
         return (
             <>
                 {currentUser.userData.goals.map((goal, i) => {
+
                     return (
                         <li key={`${goal.title}-${i}`}
                             ref={((selectedGoal === i) ? selectedEl : null)}
@@ -59,7 +62,17 @@ const GoalListItems = () => {
                                 <p>Weekly Interval: {goal.weeklyInterval}</p>
                                 <p>Start Date: {goal.startDate}</p>
                                 <p>Misses: {goal.missedGoalCounter}</p>
-                                <p>Days: {goal.goalDays.toString()}</p>
+                                <h5 className="any-day-indicator" style={{display: (goal.goalDays[7]) ? 'block' : 'none'}}>------ Any {(goal.numberOfDays === 1) ? "Day" : `${goal.numberOfDays} Days`}  ------</h5>
+                                <div className="day-box-container">
+                                    {goal.goalDays.map((day, i) => {
+                                        if (i === 7) return;
+
+                                        return (<span key={`${day}-box-${i}`} className={`day-box ${(day || daysArray[7]) ? 'selected-day' : ''}`} >
+                                            <h4>{daysArray[i]}</h4>
+                                        </span>)
+                                    })}
+                                   
+                                </div>
                             </span>
                         </li>
                     );
