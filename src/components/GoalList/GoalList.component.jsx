@@ -10,7 +10,7 @@ return (
     <div className="goal-list-container nowrap dashboard-item">
         <h2>Goal List</h2>
         <span>
-            <ol>
+            <ol className="goal-list">
             <GoalListItems/>
             </ol>
         </span>

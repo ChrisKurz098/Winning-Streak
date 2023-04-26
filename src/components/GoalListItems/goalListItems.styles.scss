@@ -9,19 +9,42 @@
         border: 2px dotted rgb(4, 0, 255);
     }
 
-    img{
-        height: 6rem;
-        margin: 1rem;
+    img {
+        height: 7rem;
+        padding: 1rem;
     }
     button {
         position: absolute;
-        top: 0;
-        right: 1rem;
+        top: 0.5rem;
+        right: 0.5rem;
     }
 }
 
-.min-view-container{
+.min-view-container {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    .streak-display-container {
+        display: flex;
+        align-items: center;
+        width: 33%;
+        align-self: center;
+        p{
+            margin: 0 0 0 3rem;
+            font-size: 3rem;
+        }
+    }
 }
 
+.max-view-container {
+    margin: 0 3rem;
+    transform-origin: top center;
+    animation: maxViewopen 0.5s;
+}
+
+@keyframes maxViewopen {
+    from {
+        opacity: 0;
+        transform: scale(1, 0);
+    }
+}

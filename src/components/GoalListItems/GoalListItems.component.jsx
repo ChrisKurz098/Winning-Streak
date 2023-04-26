@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState, useRef } from "react"
 import { UserContext } from "../../contexts/user.context";
 
 import "./goalListItems.styles.scss";
@@ -7,8 +7,9 @@ const GoalListItems = () => {
 
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const [selectedGoal, setSelectedGoal] = useState(null);
+    const selectedEl = useRef(null);
 
-    const handleMouseClick = (i) => {
+    const handleMouseClick = (i, e) => {
         setSelectedGoal(old => {
             return (old === i) ? null : i;
         });
@@ -25,13 +26,19 @@ const GoalListItems = () => {
     const selectDisplayToggle = (i) => {
         return (selectedGoal === i) ? "block" : "none"
     }
+
+    useEffect(() => {
+        if (selectedGoal !==null) selectedEl.current.scrollIntoView({behavior : 'smooth', block: 'start', inline: 'start'});
+    }, [selectedGoal]);
+
     if (currentUser) {
         return (
             <>
                 {currentUser.userData.goals.map((goal, i) => {
                     return (
                         <li key={`${goal.title}-${i}`}
-                            onClick={() => { handleMouseClick(i); }}
+                            ref={((selectedGoal === i) ? selectedEl : null)}
+                            onClick={(e) => { handleMouseClick(i, e); }}
                             className={`goal-item-container ${(selectedGoal === i) ? "selected-item" : ""}`}>
                             <button type="button" onClick={() => { handleDelete(i) }} style={{ "display": selectDisplayToggle(i) }}>delete</button>
                             <span className="min-view-container">
@@ -39,11 +46,20 @@ const GoalListItems = () => {
                                 <h3
                                     className="goal-list-item"
                                 >{goal.title}</h3>
+
+                                <span className="streak-display-container">
+                                    <h3>Streak:</h3>
+                                    <p>{(goal.currentStreak) ? goal.currentStreak : 0}</p>
+                                </span>
                             </span>
 
-                            <span className="max-goal-container"
+                            <span className="max-view-container"
                                 style={{ "display": selectDisplayToggle(i) }}>
                                 <p>Description: {goal.description}</p>
+                                <p>Weekly Interval: {goal.weeklyInterval}</p>
+                                <p>Start Date: {goal.startDate}</p>
+                                <p>Misses: {goal.missedGoalCounter}</p>
+                                <p>Days: {goal.goalDays.toString()}</p>
                             </span>
                         </li>
                     );
