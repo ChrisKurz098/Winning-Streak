@@ -31,12 +31,13 @@ const CreateGoal = () => {
         goalDays: [false, false, false, false, false, false, false, true],
     });
 
-   
+
     let {
         title,
         description,
         weeklyInterval,
         goalDays,
+        numberOfDays
     } = formInput;
 
     const handleChange = (event) => {
@@ -78,36 +79,38 @@ const CreateGoal = () => {
             <div className='create-goal-container'>
                 <form onSubmit={submitGoal}>
                     <h2 className='create-goal-header'>Create a new goal:</h2>
-                  
+
                     <label htmlFor='type-select' className='goal-type-label'>Goal Type</label>
                     <span className='select-container'>
-                    <img alt='goal icon' src={`icons/${formInput.typeSelect}.png`} />
-                    <select id='type-select' name='typeSelect' onChange={handleDropDownChange}>
-                        {
-                            goalTypes.map((type, i) => {
-                                return (
-                                    <option key={`${type}-${i}`} value={type}>{`${type}`}</option>
-                                )
-                            })
-                        }
-                    </select>
+                        <img alt='goal icon' src={`icons/${formInput.typeSelect}.png`} />
+                        <select id='type-select' name='typeSelect' required onChange={handleDropDownChange}>
+                            {
+                                goalTypes.map((type, i) => {
+                                    return (
+                                        <option key={`${type}-${i}`} value={type}>{`${type}`}</option>
+                                    )
+                                })
+                            }
+                        </select>
                     </span>
-                    <FormInput label='Title' required value={title} name='title' onChange={handleChange} />
-                    <FormInput label='Description' required value={description} name='description' onChange={handleChange} />
-                    <FormInput label='Weekly Interval' type='number' required value={weeklyInterval} name='weeklyInterval' onChange={handleChange} />
+                    <FormInput label='Title'  value={title} name='title' onChange={handleChange} />
+                    <FormInput label='Description'  value={description} name='description' onChange={handleChange} />
+                    <FormInput label='Weekly Interval' type='number'  value={weeklyInterval} name='weeklyInterval' onChange={handleChange} />
                     <div className='goal-days-container'>
                         {
                             daysArray.map((day, i) => {
                                 return (
                                     <div key={`${day}${i}`} className='day-container nowrap'>
-                                        <input id={`${i}`} type='checkbox' checked={goalDays[i]} onChange={handleGoalDayChange} />
+                                        <input id={`${i}`}  type='checkbox' checked={goalDays[i]} onChange={handleGoalDayChange} />
                                         <label htmlFor={`${i}`}>{`${day}`}</label>
                                     </div>
                                 )
                             })
                         }
 
-
+                        <div style={{ display: (formInput.goalDays[7]) ? 'block' : 'none' }}>
+                            <FormInput label='Days per weekly interval:' type='number' min="1" max="7"  value={numberOfDays} name='numberOfDays' onChange={handleChange} />
+                        </div>
                     </div>
 
                     <div className="buttons-container">
