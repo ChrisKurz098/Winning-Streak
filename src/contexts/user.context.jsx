@@ -37,7 +37,7 @@ export const UserProvider = ({ children }) => {
 
     }, [currentUser]);
 
-    console.log('curUser: ', currentUser)
+
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 };
 

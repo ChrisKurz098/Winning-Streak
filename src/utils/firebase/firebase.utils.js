@@ -58,7 +58,6 @@ export const createUserDocFromAuth = async (userAuth, additionalInfo) => {
     if (userSnapshot.exists()) {
         return userDocRef;
     } else {
-        console.log(userAuth);
         const { displayName, email } = userAuth;
         const createdAt = new Date();
         const userData = userDataTemplate;
@@ -97,7 +96,6 @@ export const getRemoteUserData = async (userEmail) => {
 };
 
 export const updateRemoteUserData = async (userAuth, updatedData) => {
-    console.log('Updating....', updatedData)
         await updateDoc(doc(db, "users", userAuth), {
            userData: updatedData
          });

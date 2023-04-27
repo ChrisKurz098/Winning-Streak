@@ -23,12 +23,14 @@ const CreateGoal = () => {
         description: '',
         weeklyInterval: 1,
         numberOfDays: 1,
-        startDate: new Date(Date.now()).toString(),
+        startDate: new Date(Date.now()),
         currentStreak: 0,
         missedGoalCounter: 0,
         totalMissedGoalCounter: 0,
-        numberOfDays: 1,
         goalDays: [false, false, false, false, false, false, false, true],
+
+        lastDate: new Date(Date.now()),
+        daysCompleted: [false, false, false, false, false, false, false],
     });
 
 
@@ -52,11 +54,10 @@ const CreateGoal = () => {
         setFormInput(old => ({ ...old, typeSelect: newOption }));
     };
 
-    const handleGoalDayChange = (event) => {
-        const { id, checked } = event.target;
-        const index = parseInt(id);
-        (index === 7) ? goalDays = [false, false, false, false, false, false, false, true] : goalDays[7] = false;
-        goalDays[index] = checked;
+    const handleGoalDayChange = (e, i) => {
+        const { checked } = e.target;
+        (i === 7) ? goalDays = [false, false, false, false, false, false, false, true] : goalDays[7] = false;
+        goalDays[i] = checked;
         setFormInput(old => ({ ...old, goalDays: goalDays }));
     };
 
@@ -65,12 +66,9 @@ const CreateGoal = () => {
         event.preventDefault();
         setLoading(true);
         let updatedUser = { ...currentUser };
-        console.log(updatedUser);
         updatedUser.userData.goals.push(formInput);
-        console.log(updatedUser)
         setCurrentUser(updatedUser);
         navigate('/');
-
     }
 
     return (
@@ -101,7 +99,7 @@ const CreateGoal = () => {
                             daysArray.map((day, i) => {
                                 return (
                                     <div key={`${day}${i}`} className='day-container nowrap'>
-                                        <input id={`${i}`}  type='checkbox' checked={goalDays[i]} onChange={handleGoalDayChange} />
+                                        <input id={`${i}`}  type='checkbox' checked={goalDays[i]} onChange={(e) => handleGoalDayChange(e,i)} />
                                         <label htmlFor={`${i}`}>{`${day}`}</label>
                                     </div>
                                 )

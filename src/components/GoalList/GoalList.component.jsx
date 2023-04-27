@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
 
 import "./goalList.styles.scss"
-import GoalListItems from "../GoalListItems/GoalListItems.component";
+import GoalListItems from "./GoalListItems/GoalListItems.component";
 
 const GoalList = () => {
 
