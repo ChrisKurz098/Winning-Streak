@@ -12,19 +12,20 @@ import PopUpMenu from "../../PopUpMenu/PopUpMenu.component";
 const GoalListItems = () => {
 
     const { currentUser, setCurrentUser } = useContext(UserContext);
-    const [selectedGoal, setSelectedGoal] = useState(null);
 
+    const [selectedGoal, setSelectedGoal] = useState(null);
     const [menu, setMenu] = useState(false)
+
     const selectedEl = useRef(null);
 
     const handleExpand = (i, e) => {
 
+        //this should be changed to only work when a tab element is clicked. element needs to be added first
         if (e.target.className === 'min-view-container') {
             setSelectedGoal(old => {
                 return (old === i) ? null : i;
             });
         }
-
     };
 
     const handleDelete = (i) => {
@@ -42,6 +43,7 @@ const GoalListItems = () => {
 
 
     const selectDisplayToggle = (i) => {
+        //this retruns the needed CSS display type depending on if the clicked taget is the selecteed goal
         return (selectedGoal === i) ? "block" : "none"
     };
 
@@ -56,8 +58,6 @@ const GoalListItems = () => {
     if (currentUser) {
         return (
             <>
-
-
                 {currentUser.userData.goals.map((goal, i) => {
                     return (
                         <li key={`${goal.title}-${i}`}
@@ -65,7 +65,7 @@ const GoalListItems = () => {
                             onClick={(e) => { handleExpand(i, e); }}
                             className={`goal-item-container ${(selectedGoal === i) ? "selected-item" : ""}`}>
 
-                            <PopUpMenu callback={handleDelete} message={`Are you sure you want to delete this goal forever?`} returns={[i, -1]} style={{ display: (selectedGoal === i && menu) ? 'flex' : 'none' }} />
+                            <PopUpMenu callback={handleDelete} message={`Are you sure you want to delete this goal forever?`} returns={[i, -1]} renderWhen= {(selectedGoal === i && menu)} />
 
                             <button type="button" onClick={() => setMenu(old => (!old))} style={{ "display": selectDisplayToggle(i) }}>delete</button>
 
