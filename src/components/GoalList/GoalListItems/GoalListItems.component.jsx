@@ -6,12 +6,15 @@ import { UserContext } from "../../../contexts/user.context";
 import "./goalListItems.styles.scss";
 import MaxGoalView from "../MaxGoalView/MaxGoalView.componet";
 import MinGoalView from "../MinGoalView/MinGoalView.componet";
+import PopUpMenu from "../../PopUpMenu/PopUpMenu.component";
 
 
 const GoalListItems = () => {
 
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const [selectedGoal, setSelectedGoal] = useState(null);
+
+    const [menu, setMenu] = useState(false)
     const selectedEl = useRef(null);
 
     const handleExpand = (i, e) => {
@@ -25,11 +28,18 @@ const GoalListItems = () => {
     };
 
     const handleDelete = (i) => {
+        setMenu(false); //close menu
+        if (i <0 ) return; //if -1 is returned, the user input was no. 
+        
+        //modify userData and remove selected goal
         setCurrentUser(old => {
             old.userData.goals.splice(i, 1);
             return { ...old }
         })
+        
+        setSelectedGoal(null);
     };
+
 
     const selectDisplayToggle = (i) => {
         return (selectedGoal === i) ? "block" : "none"
@@ -41,9 +51,13 @@ const GoalListItems = () => {
         if (selectedGoal !== null) selectedEl.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
     }, [selectedGoal]);
 
+
+
     if (currentUser) {
         return (
             <>
+
+
                 {currentUser.userData.goals.map((goal, i) => {
                     return (
                         <li key={`${goal.title}-${i}`}
@@ -51,11 +65,13 @@ const GoalListItems = () => {
                             onClick={(e) => { handleExpand(i, e); }}
                             className={`goal-item-container ${(selectedGoal === i) ? "selected-item" : ""}`}>
 
-                            <button type="button" onClick={() => { handleDelete(i) }} style={{ "display": selectDisplayToggle(i) }}>delete</button>
-{/*------------Make Seperate Component--------------*/}                            
-                              <MinGoalView goal={goal}/>
-{/*------------Make Seperate Component--------------*/}
-<MaxGoalView i={i} goal={goal} selectedGoal={selectedGoal} style={{ "display": selectDisplayToggle(i) }} />
+                            <PopUpMenu callback={handleDelete} message={`Are you sure you want to delete this goal forever?`} returns={[i, -1]} style={{ display: (selectedGoal === i && menu) ? 'flex' : 'none' }} />
+
+                            <button type="button" onClick={() => setMenu(old => (!old))} style={{ "display": selectDisplayToggle(i) }}>delete</button>
+
+                            <MinGoalView goal={goal} />
+
+                            <MaxGoalView i={i} goal={goal} selectedGoal={selectedGoal} style={{ "display": selectDisplayToggle(i) }} />
                         </li>
                     );
 

@@ -1,0 +1,41 @@
+.disable-clicks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(93, 92, 92, 0.431);
+    z-index: 1000;
+}
+
+.popup-menu-container {
+
+
+    padding: 1rem;
+    background-color: white;
+    border: 2px solid black;
+    max-width: 40vw;
+    min-height: 150px;
+    animation: grow 400ms;
+
+    .buttons-container {
+        margin-bottom: 0px;
+        display: flex;
+        justify-content: center;
+    button{
+        position: inherit;
+        margin: .5rem 2rem 0 2rem ;
+        height: 50px;
+        width: 100px;
+    }
+    }
+}
+
+@keyframes grow {
+    from {
+        transform: scale(0);
+    }
+}
