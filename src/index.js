@@ -6,13 +6,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { UserProvider } from "./contexts/user.context";
-
+import { PopupMenuContextProvider } from "./contexts/popup.context";
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
             <UserProvider>
+                <PopupMenuContextProvider>
                     <App />
+                </PopupMenuContextProvider>
             </UserProvider>
         </BrowserRouter>
     </React.StrictMode>,

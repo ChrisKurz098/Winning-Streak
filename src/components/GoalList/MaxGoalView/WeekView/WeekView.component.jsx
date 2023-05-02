@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../../../../contexts/user.context";
 import { daysArray } from "../../../../utils/userData/userDataFunctions";
+import PopUpMenu from "../../../PopUpMenu/PopUpMenu.component";
 const WeekView = ({ i, goal }) => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
 
@@ -26,6 +27,7 @@ const WeekView = ({ i, goal }) => {
                 return (<span key={`${day}-box-${j}`}
                     className={`day-box ${(goalDays[7] || day) ? 'selected-day' : ''} ${(daysCompleted[j]) ? "completed-day" : ""}`}
                     onClick={() => handleDayCompleted(i, j)}>
+                    <PopUpMenu/>
                     <h4>{daysArray[j]}</h4>
                 </span>)
             })}

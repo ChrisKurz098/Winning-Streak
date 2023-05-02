@@ -6,7 +6,7 @@ import { UserContext } from "../../../contexts/user.context";
 import "./goalListItems.styles.scss";
 import MaxGoalView from "../MaxGoalView/MaxGoalView.componet";
 import MinGoalView from "../MinGoalView/MinGoalView.componet";
-import PopUpMenu from "../../PopUpMenu/PopUpMenu.component";
+import usePopup from "../../../contexts/popup.context";
 
 
 const GoalListItems = () => {
@@ -14,7 +14,7 @@ const GoalListItems = () => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
 
     const [selectedGoal, setSelectedGoal] = useState(null);
-    const [menu, setMenu] = useState(false)
+    const { createPopup, closePopup } = usePopup();
 
     const selectedEl = useRef(null);
 
@@ -29,16 +29,22 @@ const GoalListItems = () => {
     };
 
     const handleDelete = (i) => {
-        setMenu(false); //close menu
-        if (i <0 ) return; //if -1 is returned, the user input was no. 
-        
-        //modify userData and remove selected goal
-        setCurrentUser(old => {
-            old.userData.goals.splice(i, 1);
-            return { ...old }
-        })
-        
-        setSelectedGoal(null);
+        //this is the callback function that will be used when the user selects yes or no
+        const performDelete = () => {
+            setCurrentUser(old => {
+                old.userData.goals.splice(i, 1);
+                return { ...old }
+            });
+            setSelectedGoal(null);
+            closePopup();
+        }
+   //this will update the popup and make the popup visable. make the above function the callback with onConfirm
+        createPopup({
+            message: 'Are you sure you want to delete this goal forever?',
+            onConfirm: performDelete
+        });
+
+
     };
 
 
@@ -65,9 +71,9 @@ const GoalListItems = () => {
                             onClick={(e) => { handleExpand(i, e); }}
                             className={`goal-item-container ${(selectedGoal === i) ? "selected-item" : ""}`}>
 
-                            <PopUpMenu callback={handleDelete} message={`Are you sure you want to delete this goal forever?`} returns={[i, -1]} renderWhen= {(selectedGoal === i && menu)} />
 
-                            <button type="button" onClick={() => setMenu(old => (!old))} style={{ "display": selectDisplayToggle(i) }}>delete</button>
+
+                            <button type="button" onClick={() => handleDelete(i)} style={{ "display": selectDisplayToggle(i) }}>delete</button>
 
                             <MinGoalView goal={goal} />
 
