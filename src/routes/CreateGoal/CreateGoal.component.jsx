@@ -8,7 +8,7 @@ import FormInput from '../../components/FormInput/FormInput.component';
 import Button from '../../components/Button/Button.component';
 import { daysArray } from '../../utils/userData/userDataFunctions';
 import { useNavigate } from 'react-router-dom';
-
+import moment from 'moment/moment';
 
 const CreateGoal = () => {
     const { currentUser, setCurrentUser, userAuthId } = useContext(UserContext)
@@ -23,13 +23,15 @@ const CreateGoal = () => {
         description: '',
         weeklyInterval: 1,
         numberOfDays: 1,
-        startDate: new Date(Date.now()),
+        startDate: moment().format("MM/DD/YYYY"),
+        lastInterval: moment().format("MM/DD/YYYY"),
+        intervalCounter: 1,
         currentStreak: 0,
         missedGoalCounter: 0,
         totalMissedGoalCounter: 0,
         goalDays: [false, false, false, false, false, false, false, true],
 
-        lastDate: new Date(Date.now()),
+
         daysCompleted: [false, false, false, false, false, false, false],
     });
 
