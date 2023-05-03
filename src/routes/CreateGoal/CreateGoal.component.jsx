@@ -55,20 +55,28 @@ const CreateGoal = () => {
 
     const handleGoalDayChange = (e, i) => {
         const { checked } = e.target;
+        numberOfDays = 1;
         (i === 7) ? goalDays = [false, false, false, false, false, false, false, true] : goalDays[7] = false;
+        if (!goalDays[7]) numberOfDays = goalDays.filter(x => (x)).length + 1;
+
         goalDays[i] = checked;
-        setFormInput(old => ({ ...old, goalDays: goalDays }));
+
+        if (!goalDays.includes(true)) goalDays[7] = true;
+        setFormInput(old => ({ ...old, goalDays: goalDays, numberOfDays: numberOfDays }));
     };
 
 
     const submitGoal = async (event) => {
         event.preventDefault();
         setLoading(true);
+
         let updatedUser = { ...currentUser };
+
         updatedUser.userData.goals.push(formInput);
         setCurrentUser(updatedUser);
         navigate('/');
     }
+
 
     return (
         <>
@@ -90,14 +98,14 @@ const CreateGoal = () => {
                             }
                         </select>
                     </span>
-                    <FormInput label='Title'  value={title} name='title' onChange={handleChange} />
-                    <FormInput label='Weekly Interval' type='number'  value={weeklyInterval} name='weeklyInterval' onChange={handleChange} />
+                    <FormInput label='Title' value={title} name='title' onChange={handleChange} />
+                    <FormInput label='Weekly Interval' type='number' value={weeklyInterval} name='weeklyInterval' onChange={handleChange} />
                     <div className='goal-days-container'>
                         {
                             daysArray.map((day, i) => {
                                 return (
                                     <div key={`${day}${i}`} className='day-container nowrap'>
-                                        <input id={`${i}`}  type='checkbox' checked={goalDays[i]} onChange={(e) => handleGoalDayChange(e,i)} />
+                                        <input id={`${i}`} type='checkbox' checked={goalDays[i]} onChange={(e) => handleGoalDayChange(e, i)} />
                                         <label htmlFor={`${i}`}>{`${day}`}</label>
                                     </div>
                                 )
@@ -105,7 +113,7 @@ const CreateGoal = () => {
                         }
 
                         <div style={{ display: (formInput.goalDays[7]) ? 'block' : 'none' }}>
-                            <FormInput label='Days per weekly interval:' type='number' min="1" max="7"  value={numberOfDays} name='numberOfDays' onChange={handleChange} />
+                            <FormInput label='Days per weekly interval:' type='number' min="1" max="7" value={numberOfDays} name='numberOfDays' onChange={handleChange} />
                         </div>
                     </div>
 

@@ -1,13 +1,8 @@
-import { useContext, useEffect } from "react";
-import WeekView from "./WeekView/WeekView.component";
+import WeekView from "../WeekView/WeekView.component";
 import moment from "moment/moment";
-import { UserContext } from "../../../contexts/user.context";
-
-
-
 
 const MaxGoalView = ({ i, goal, style }) => {
-    const { currentUser, setCurrentUser } = useContext(UserContext);
+    
     const {
         missedGoalCounter,
         weeklyInterval,
@@ -33,7 +28,7 @@ const MaxGoalView = ({ i, goal, style }) => {
             <p>Every {(weeklyInterval === 1) ? "Week" : `${weeklyInterval} Weeks`}</p>
             <h5 className="any-day-indicator" style={{ display: (goalDays[7]) ? 'block' : 'none' }}>------ Complete on Any {(numberOfDays === 1) ? "Day" : `${numberOfDays} Days`} for Max Points!  ------</h5>
             <h5 className="any-day-indicator" style={{ display: (goalDays[7]) ? 'none' : 'block' }}>------ Complete on Highlighted Days for Max Points!  ------</h5>
-            {/*------------Make Seperate Component--------------*/}
+            
             <WeekView i={i} goal={goal} />
         </div>
 
