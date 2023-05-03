@@ -22,7 +22,7 @@ const handleClick = (performCallback) => {
                 <p>{message}</p>
                 <span className="buttons-container">
                     <button onClick={() => handleClick(true)}>{answerA}</button>
-                    <button onClick={() => handleClick(false)}>{answerB}</button>
+                    <button style={{display: (answerA === answerB) ? 'none' : ''}} onClick={() => handleClick(false)}>{answerB}</button>
                 </span>
             </div>
         </div>

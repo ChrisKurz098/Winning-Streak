@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import moment from 'moment/moment';
 import './createGoal.styles.scss'
 
 
@@ -17,7 +18,20 @@ const CreateGoal = () => {
     const navigate = useNavigate();
 
 
-    const [formInput, setFormInput] = useState(defaultGoalState);
+    const [formInput, setFormInput] = useState({
+        typeSelect: 'other',
+        title: '',
+        weeklyInterval: 1,
+        numberOfDays: 1,
+        startDate: moment().format("MM/DD/YYYY"),
+        lastInterval: moment().format("MM/DD/YYYY"),
+        intervalCounter: 1,
+        currentStreak: 0,
+        missedGoalCounter: 0,
+        totalMissedGoalCounter: 0,
+        goalDays: [false, false, false, false, false, false, false, true],
+        daysCompleted: [false, false, false, false, false, false, false],
+    });
 
     let {
         title,
