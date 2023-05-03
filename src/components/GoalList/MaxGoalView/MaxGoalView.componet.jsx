@@ -20,7 +20,7 @@ const MaxGoalView = ({ i, goal, style }) => {
     
 
     const today = moment().format("MM/DD/YYYY");
-    const remainingDays = moment(lastInterval).diff(moment(today), 'days') 
+    const remainingDays = 7 -   moment(today).diff(moment(lastInterval), 'days') 
 
 
     return (
