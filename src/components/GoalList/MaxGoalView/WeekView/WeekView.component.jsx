@@ -53,12 +53,14 @@ const WeekView = ({ i, goal }) => {
             lastInterval
         } = currentUser.userData.goals[i];
 
+        let data = currentUser.userData;
+
         const dayCompleted = () => {
-            console.log('UPDATE');
+       
             setCurrentUser(old => {
-                old.userData.goals[i].daysCompleted[j] = true;
-                old.userData.score += 100;
-                return { ...old };
+                data.goals[i].daysCompleted[j] = true;
+                data.score += 150;
+                return { ...old, userData: data };
             })
             //add points
             //check if goal is finished for interval
@@ -69,22 +71,10 @@ const WeekView = ({ i, goal }) => {
         };
        
 
-        /*
-        
-        if (day isnt on a target day) {
-            message: 'This day is not a target day. You can count this day but you will not recive full points
-            choice: ['Select this day', 'Don't select this day']
-            onConfirm: dayCompleted()
-        };
-        if (day of week != selected day) {
-            message: 'Don't forget to check off your goals on the day of to recive bonus points!'
-            choice: ['OK', Null]
-            onConfirm: dayCompleted()
-        }    
-        */
 
         const todaysRelativeIndex = daysArray.indexOf(moment(today).format('dddd'));
 
+        if (data.goals[i].daysCompleted[j]) return;
         if (!goalDays[todaysRelativeIndex] && !goalDays[7]) {
             createPopup({
                 message: 'This day is not a target day. You can count this day but you will recive half points',
@@ -96,7 +86,7 @@ const WeekView = ({ i, goal }) => {
 
         if (todaysRelativeIndex !== j) {
             createPopup({
-                message: "Don't forget to check off your goals on the day of to recive bonus points!",
+                message: "Don't forget to check off your goals on the day-of to get bonus points!",
                 answesrs: ["OK", "Cancle"],
                 onConfirm: dayCompleted
             })

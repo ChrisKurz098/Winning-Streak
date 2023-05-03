@@ -26,6 +26,7 @@ const CreateGoal = () => {
         startDate: moment().format("MM/DD/YYYY"),
         lastInterval: moment().format("MM/DD/YYYY"),
         intervalCounter: 1,
+        intervalComplete: false,
         currentStreak: 0,
         missedGoalCounter: 0,
         totalMissedGoalCounter: 0,
