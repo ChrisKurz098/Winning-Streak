@@ -6,9 +6,9 @@ import { goalTypes } from '../../utils/userData/userDataFunctions';
 import { UserContext } from '../../contexts/user.context'
 import FormInput from '../../components/FormInput/FormInput.component';
 import Button from '../../components/Button/Button.component';
-import { daysArray } from '../../utils/userData/userDataFunctions';
+import { daysArray, defaultGoalState } from '../../utils/userData/userDataFunctions';
 import { useNavigate } from 'react-router-dom';
-import moment from 'moment/moment';
+
 
 const CreateGoal = () => {
     const { currentUser, setCurrentUser, userAuthId } = useContext(UserContext)
@@ -17,28 +17,10 @@ const CreateGoal = () => {
     const navigate = useNavigate();
 
 
-    const [formInput, setFormInput] = useState({
-        typeSelect: 'other',
-        title: '',
-        description: '',
-        weeklyInterval: 1,
-        numberOfDays: 1,
-        startDate: moment().format("MM/DD/YYYY"),
-        lastInterval: moment().format("MM/DD/YYYY"),
-        intervalCounter: 1,
-        currentStreak: 0,
-        missedGoalCounter: 0,
-        totalMissedGoalCounter: 0,
-        goalDays: [false, false, false, false, false, false, false, true],
-
-
-        daysCompleted: [false, false, false, false, false, false, false],
-    });
-
+    const [formInput, setFormInput] = useState(defaultGoalState);
 
     let {
         title,
-        description,
         weeklyInterval,
         goalDays,
         numberOfDays
@@ -94,7 +76,6 @@ const CreateGoal = () => {
                         </select>
                     </span>
                     <FormInput label='Title'  value={title} name='title' onChange={handleChange} />
-                    <FormInput label='Description'  value={description} name='description' onChange={handleChange} />
                     <FormInput label='Weekly Interval' type='number'  value={weeklyInterval} name='weeklyInterval' onChange={handleChange} />
                     <div className='goal-days-container'>
                         {

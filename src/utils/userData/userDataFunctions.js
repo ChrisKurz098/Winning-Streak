@@ -1,41 +1,28 @@
+
+import moment from 'moment/moment';
+
 export const userDataTemplate = {
-    points: 0,
+    score: 0,
+    tokens: 0,
     rank: "C",
+    vacationMode: false,
     goals: [],
 };
 
-export const mockGoals = [
-    {
-        title: "Eat pizza",
-        startDate: new Date(),
-        currentStreak: 3,
-        missedGoalCounter: 0,
-        totalMissedGoalCounter: 0,
-        weeklyInterval: 1,
-        numberOfDays: 1,
-        goalDays: [0],
-    },
-    {
-        title: "Jump into a puddle",
-        startDate: new Date(),
-        currentStreak: 7,
-        missedGoalCounter: 0,
-        totalMissedGoalCounter: 0,
-        weeklyInterval: 3,
-        numberOfDays: 1,
-        goalDays: [1],
-    },
-    {
-        title: "Watch Terminator 2 again",
-        startDate: new Date(),
-        currentStreak: 7,
-        missedGoalCounter: 0,
-        totalMissedGoalCounter: 0,
-        weeklyInterval: 1,
-        numberOfDays: 7,
-        goalDays: [0, 0, 0, 0, 0, 0, 0],
-    },
-];
+export const defaultGoalState = {
+    typeSelect: 'other',
+    title: '',
+    weeklyInterval: 1,
+    numberOfDays: 1,
+    startDate: moment().format("MM/DD/YYYY"),
+    lastInterval: moment().format("MM/DD/YYYY"),
+    intervalCounter: 1,
+    currentStreak: 0,
+    missedGoalCounter: 0,
+    totalMissedGoalCounter: 0,
+    goalDays: [false, false, false, false, false, false, false, true],
+    daysCompleted: [false, false, false, false, false, false, false],
+}
 
 export const goalTypes = [
     "Other",
