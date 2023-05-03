@@ -38,7 +38,7 @@ const WeekView = ({ i, goal }) => {
                 return { ...old };
             });
 
-        } 
+        }
 
     }, [])
 
@@ -54,37 +54,38 @@ const WeekView = ({ i, goal }) => {
             numberOfDays,
             startDate,
             lastInterval,
-            
+            intervalComplete
+
         } = currentUser.userData.goals[i];
 
-        let data = {...currentUser.userData} ;
+        let data = { ...currentUser.userData };
 
         let awardedScoreIndex = 0; //index of array for awarded score 0 best, 2 worst
         const awardedScore = [150, 100, 50];
 
         const todaysRelativeIndex = daysArray.indexOf(moment(today).format('dddd'));
 
-
+console.log(todaysRelativeIndex, j, moment(today).format('dddd'), daysArray)
         //Callback for confirmation
         const dayCompleted = () => {
             setCurrentUser(old => {
-                if (numberOfDays-1 <= daysCompleted.filter(x => (x)).length) data.goals[i].intervalComplete = true;
+                //check if goal is finished for interval
+                if (numberOfDays - 1 <= daysCompleted.filter(x => (x)).length) {
+                    data.goals[i].intervalComplete = true;
+                    data.goals[i].currentStreak += 1;
+                    data.goals[i].lastInterval =  moment().format("MM/DD/YYYY");
+                };
+
                 data.goals[i].daysCompleted[j] = true;
                 data.score += awardedScore[awardedScoreIndex];
-                data.goals[i].currentStreak += 1;
+
                 return { ...old, userData: data };
             })
-            //add points
-            //check if goal is finished for interval
-            //If goal is met, add bonus points
-            //dont uncheck days. Leave that to useEffect.
-            //Display special icon like a big check mark to let user knnow they have finished goal fro that interval
-            //display next interval start date
         };
 
 
         switch (true) {
-            case (data.goals[i].daysCompleted[j]): return;
+            case (data.goals[i].intervalComplete): return;
             case (!goalDays[todaysRelativeIndex] && !goalDays[7]): {
                 awardedScoreIndex = 2
                 createPopup({
@@ -102,7 +103,7 @@ const WeekView = ({ i, goal }) => {
                     onConfirm: dayCompleted
                 })
                 return;
-            }
+            };
             default: {
                 awardedScoreIndex = 0;
                 dayCompleted();
