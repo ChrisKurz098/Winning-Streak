@@ -1,7 +1,6 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../contexts/user.context";
 import { daysArray } from "../../../utils/userData/userDataFunctions";
-import PopUpMenu from "../../PopUpMenu/PopUpMenu.component";
 
 import moment from "moment/moment";
 import usePopup from "../../../contexts/popup.context";
@@ -9,21 +8,20 @@ const WeekView = ({ i, goal }) => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const { createPopup, closePopup } = usePopup();
 
+    const [animateDay, setAnimateDay] = useState(null);
+
     const {
         daysCompleted,
-        missedGoalCounter,
         weeklyInterval,
         goalDays,
-        numberOfDays,
-        startDate,
         lastInterval,
-        intervalComplete
     } = goal;
 
     const today = moment().format("MM/DD/YYYY");
 
     //---Check for interval end on render
     useEffect(() => {
+        setAnimateDay(null);
         //check the weekly interval and open all the days if interval has passed
         const weeksAgo = moment(today).diff(moment(lastInterval), 'weeks');
         //Make condition for vacation mode
@@ -48,35 +46,30 @@ const WeekView = ({ i, goal }) => {
 
         const {
             daysCompleted,
-            missedGoalCounter,
-            weeklyInterval,
             goalDays,
             numberOfDays,
-            startDate,
-            lastInterval,
-            intervalComplete
-
         } = currentUser.userData.goals[i];
+
 
         let data = { ...currentUser.userData };
 
         let awardedScoreIndex = 0; //index of array for awarded score 0 best, 2 worst
-        const awardedScore = [150, 100, 50];
+        const awardedScore = [200, 100, 50];
 
         const todaysRelativeIndex = daysArray.indexOf(moment(today).format('dddd'));
 
-console.log(todaysRelativeIndex, j, moment(today).format('dddd'), daysArray)
         //Callback for confirmation
         const dayCompleted = () => {
+            setAnimateDay(j);
             setCurrentUser(old => {
+                data.goals[i].daysCompleted[j] = true;
                 //check if goal is finished for interval
-                if (numberOfDays - 1 <= daysCompleted.filter(x => (x)).length) {
+                if (numberOfDays <= data.goals[i].daysCompleted.filter(x => (x)).length) {
                     data.goals[i].intervalComplete = true;
                     data.goals[i].currentStreak += 1;
-                    data.goals[i].lastInterval =  moment().format("MM/DD/YYYY");
+                    data.goals[i].lastInterval = moment().format("MM/DD/YYYY");
                 };
 
-                data.goals[i].daysCompleted[j] = true;
                 data.score += awardedScore[awardedScoreIndex];
 
                 return { ...old, userData: data };
@@ -89,7 +82,7 @@ console.log(todaysRelativeIndex, j, moment(today).format('dddd'), daysArray)
             case (!goalDays[todaysRelativeIndex] && !goalDays[7]): {
                 awardedScoreIndex = 2
                 createPopup({
-                    message: 'This day is not a target day. You can count this day but you will recive half points',
+                    message: 'This day is not a target day. You can count this day but you will receive half points',
                     answesrs: ["Select this day", "Don't select this day"],
                     onConfirm: dayCompleted
                 })
@@ -98,8 +91,8 @@ console.log(todaysRelativeIndex, j, moment(today).format('dddd'), daysArray)
             case (todaysRelativeIndex !== j): {
                 awardedScoreIndex = 1;
                 createPopup({
-                    message: "Don't forget to check off your goals on the day-of to get bonus points!",
-                    answesrs: ["OK", "Cancle"],
+                    message: "Don't forget to check off your goals on the day-of to get double points!",
+                    answesrs: ["OK", "Cancel"],
                     onConfirm: dayCompleted
                 })
                 return;
@@ -121,6 +114,7 @@ console.log(todaysRelativeIndex, j, moment(today).format('dddd'), daysArray)
 
                 return (<span key={`${day}-box-${j}`}
                     className={`day-box ${(goalDays[7] || day) ? 'selected-day' : ''} ${(daysCompleted[j]) ? "completed-day" : ""}`}
+                    style={{ animation: (animateDay === j) ? 'dayCheckoff 2s' : '' }}
                     onClick={() => handleDayCompleted(i, j)}>
                     <h4>{daysArray[j]}</h4>
                 </span>)

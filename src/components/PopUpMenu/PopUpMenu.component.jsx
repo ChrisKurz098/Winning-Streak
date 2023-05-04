@@ -1,7 +1,7 @@
 
 import "./popUpMenu.styles.scss";
 import usePopup from "../../contexts/popup.context";
-const PopUpMenu = ({ message, answesrs, onConfirm, isOpen,  }) => {
+const PopUpMenu = ({ message, answesrs, onConfirm, onCancel, isOpen,  }) => {
     const answerA = answesrs?.[0] ?? 'Yes';
     const answerB = answesrs?.[1] ?? 'No';
 
@@ -9,7 +9,7 @@ const PopUpMenu = ({ message, answesrs, onConfirm, isOpen,  }) => {
     const popup = usePopup();
 
 const handleClick = (performCallback) => {
-   if (performCallback) onConfirm?.();
+    performCallback?.();
    popup.closePopup();
 }
 
@@ -21,8 +21,8 @@ const handleClick = (performCallback) => {
             <div className="popup-menu-container">
                 <p>{message}</p>
                 <span className="buttons-container">
-                    <button onClick={() => handleClick(true)}>{answerA}</button>
-                    <button style={{display: (answerA === answerB) ? 'none' : ''}} onClick={() => handleClick(false)}>{answerB}</button>
+                    <button onClick={() => handleClick(onConfirm)}>{answerA}</button>
+                    <button style={{display: (answerA === answerB) ? 'none' : ''}} onClick={() => handleClick(onCancel)}>{answerB}</button>
                 </span>
             </div>
         </div>

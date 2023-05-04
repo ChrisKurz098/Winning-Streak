@@ -4,7 +4,9 @@
     border: 1px dotted red;
     position: relative;
     flex-flow: column;
-
+.check-mark{
+    animation: dayCheckoff 2.2sec;
+}
     &:hover {
         border: 2px dotted rgb(4, 0, 255);
     }
@@ -56,16 +58,19 @@
             background-color: rgb(65, 65, 65);
             color: white;
         }
-        .completed-day{
+        .completed-day {
+            color: white;
             background-color: rgb(68, 165, 76);
+            transform-origin: center center;
+            
+         
         }
-    
     }
     .any-day-indicator {
-        margin: 0 0 .5rem 0;
+        margin: 0 0 0.5rem 0;
         padding: 0;
         text-align: center;
-       
+border: 2px solid black;
         width: 100%;
     }
 }
@@ -74,5 +79,25 @@
     from {
         opacity: 0;
         transform: scale(1, 0);
+    }
+}
+
+@keyframes dayCheckoff {
+    0% {
+        background-color: rgb(223, 247, 225);
+
+        border-color: aliceblue;
+
+    }
+    20% {
+        transform: scale(0.5);
+    }
+    50% {
+        border-color: rgb(218, 238, 255);
+        transform: scale(1.1);
+    }
+    100% {  
+border-color: black;
+        
     }
 }
