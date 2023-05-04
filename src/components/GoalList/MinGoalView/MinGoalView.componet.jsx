@@ -13,7 +13,7 @@ return (
     <div className="min-view-container">
         <span>
         <img alt='goal icon' src={`icons/${typeSelect}.png`} />
-    <img alt="check mark" className="check-mark" src={`icons/checkmark.png`} style={{opacity: (intervalComplete) ? '100%' : '0%'}}/>
+    <img alt="check mark" className="check-mark" src={`icons/checkmark.png`} style={{opacity: (intervalComplete) ? '100%' : '0%' , animation: (intervalComplete) ? '' : 'none' }}/>
         </span>
 
     <h3

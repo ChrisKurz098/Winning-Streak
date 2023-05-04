@@ -5,7 +5,8 @@
     position: relative;
     flex-flow: column;
 .check-mark{
-    animation: dayCheckoff 2.2sec;
+    transform-origin: center center;
+   animation: getCheckmark 2s;
 }
     &:hover {
         border: 2px dotted rgb(4, 0, 255);
@@ -99,5 +100,20 @@ border: 2px solid black;
     100% {  
 border-color: black;
         
+    }
+}
+
+
+@keyframes getCheckmark {
+    0% {
+        transform: scale(3) rotate(-360deg);
+        opacity: 0%;
+    }
+    75%{
+        transform: scale(.8)rotate(-360deg);
+    }
+    90%{
+        
+        transform: scale(1.2)rotate(0deg);
     }
 }

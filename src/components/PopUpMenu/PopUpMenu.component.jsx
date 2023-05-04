@@ -45,5 +45,6 @@ How to use this compoonent:
 - message: STR - the message that will be displayed
 - answesrs: [STR, STR] - an array with 2 strings ['Answer A', 'Answer B' ] default is ['Yes','No'] when nothing is passed
 - onConfirm: This is a callback function that is triggered when the user selects Yes
+- onCancel: This is a callback function that is triggered when the user selects No
 - isOpen: this is a bool value that determines if the popup is displayed or not. This is set in the popup context
 */
