@@ -1,7 +1,10 @@
+
+@import "../../../utils/scssVars/variables.scss";
+
 .goal-item-container {
     display: flex;
 
-    border: 1px dotted red;
+    border: 1px dotted $fontColorBorderAlt;
     position: relative;
     flex-flow: column;
 .check-mark{
@@ -9,7 +12,7 @@
    animation: getCheckmark 2s;
 }
     &:hover {
-        border: 2px solid rgb(150, 148, 255);
+        border: 2px solid $fontColorBorder;
     }
 
     img {
@@ -56,12 +59,12 @@
             text-align: center;
         }
         .selected-day {
-            background-color: rgb(65, 65, 65);
+            background-color: $fontColorHighlightAlt;
             color: white;
         }
         .completed-day {
             color: white;
-            background-color: rgb(68, 165, 76);
+            background-color: $fontColorHighlight;
             transform-origin: center center;
             
          
