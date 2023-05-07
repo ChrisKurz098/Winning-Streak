@@ -1,9 +1,15 @@
 
 import "./popUpMenu.styles.scss";
 import usePopup from "../../contexts/popup.context";
+import { useEffect, useRef } from "react";
 const PopUpMenu = ({ message, answesrs, onConfirm, onCancel, isOpen,  }) => {
     const answerA = answesrs?.[0] ?? 'Yes';
     const answerB = answesrs?.[1] ?? 'No';
+    const choiceB = useRef();
+
+    useEffect(() => {
+        choiceB.current.focus();
+    }, [isOpen])
 
     
     const popup = usePopup();
@@ -22,7 +28,7 @@ const handleClick = (performCallback) => {
                 <p>{message}</p>
                 <span className="buttons-container">
                     <button onClick={() => handleClick(onConfirm)}>{answerA}</button>
-                    <button style={{display: (answerA === answerB) ? 'none' : ''}} onClick={() => handleClick(onCancel)}>{answerB}</button>
+                    <button ref={choiceB} style={{display: (answerA === answerB) ? 'none' : ''}} onClick={() => handleClick(onCancel)}>{answerB}</button>
                 </span>
             </div>
         </div>
