@@ -33,11 +33,8 @@ export const UserProvider = ({ children }) => {
             if (currentUser){
                 await updateRemoteUserData(userAuthId, currentUser.userData);
             }
-           
         };
-
         updaeDatabase();
-
     }, [currentUser]);
 
 
