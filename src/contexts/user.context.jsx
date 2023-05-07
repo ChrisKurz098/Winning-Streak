@@ -30,7 +30,10 @@ export const UserProvider = ({ children }) => {
 
     useEffect(() => {
         const updaeDatabase = async () => {
-            await updateRemoteUserData(userAuthId, currentUser.userData);
+            if (currentUser.userData){
+                await updateRemoteUserData(userAuthId, currentUser.userData);
+            }
+           
         };
 
         updaeDatabase();
