@@ -24,15 +24,17 @@ const WeekView = ({ i, goal }) => {
         setAnimateDay(null);
         //check the weekly interval and open all the days if interval has passed
         const weeksAgo = moment(today).diff(moment(lastInterval), 'weeks');
+        
         //Make condition for vacation mode
         if (weeksAgo >= weeklyInterval) {
             console.log("Week interval met: ", weeksAgo)
             console.log("Setting new interval")
-
+            const newIntervalStart = moment(lastInterval).add(7 * weeklyInterval, 'days').format("MM/DD/YYYY");
             setCurrentUser(old => {
                 //this makes sure to set the next interval to one week * interval from the last interval
-                old.userData.goals[i].lastInterval = moment(lastInterval).add(7 * weeklyInterval, 'days');
+                old.userData.goals[i].lastInterval = newIntervalStart;
                 old.userData.goals[i].intervalComplete = false;
+                old.userData.goals[i].daysCompleted = [false,false,false,false,false,false,false];
                 return { ...old };
             });
 
@@ -67,7 +69,6 @@ const WeekView = ({ i, goal }) => {
                 if (numberOfDays <= data.goals[i].daysCompleted.filter(x => (x)).length) {
                     data.goals[i].intervalComplete = true;
                     data.goals[i].currentStreak += 1;
-                    data.goals[i].lastInterval = moment().format("MM/DD/YYYY");
                 };
 
                 data.score += awardedScore[awardedScoreIndex];

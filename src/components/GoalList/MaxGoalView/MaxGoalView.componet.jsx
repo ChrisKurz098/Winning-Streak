@@ -23,6 +23,7 @@ const MaxGoalView = ({ i, goal, style }) => {
             style={style}
         >
             <p>Start Date: {startDate}</p>
+            <p>Last Interval: {lastInterval}</p>
             <p>Remaining Days: {remainingDays}</p>
             <p>Misses: {missedGoalCounter}</p>
             <p>Every {(weeklyInterval === 1) ? "Week" : `${weeklyInterval} Weeks`}</p>
