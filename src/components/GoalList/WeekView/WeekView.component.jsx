@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { createRef, useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../../../contexts/user.context";
 import { daysArray } from "../../../utils/userData/userDataFunctions";
 
@@ -9,6 +9,10 @@ const WeekView = ({ i, goal }) => {
     const { createPopup, closePopup } = usePopup();
 
     const [animateDay, setAnimateDay] = useState(null);
+
+    const pointsAnimation = useRef([createRef(), createRef(), createRef(), createRef(), createRef(), createRef(), createRef()]);
+
+
 
     const {
         daysCompleted,
@@ -21,20 +25,30 @@ const WeekView = ({ i, goal }) => {
 
     //---Check for interval end on render
     useEffect(() => {
+
+
         setAnimateDay(null);
         //check the weekly interval and open all the days if interval has passed
         const weeksAgo = moment(today).diff(moment(lastInterval), 'weeks');
         
         //Make condition for vacation mode
         if (weeksAgo >= weeklyInterval) {
-            console.log("Week interval met: ", weeksAgo)
-            console.log("Setting new interval")
             const newIntervalStart = moment(lastInterval).add(7 * weeklyInterval, 'days').format("MM/DD/YYYY");
+            
             setCurrentUser(old => {
                 //this makes sure to set the next interval to one week * interval from the last interval
+                if (old.userData.goals[i].intervalComplete) {
+                    old.userData.totalStreak += 1;
+                    old.userData.goals[i].missedGoalCounter = 0;
+                } else {
+                    old.userData.goals[i].missedGoalCounter += 1;
+                    old.userData.goals[i].totalMissedGoalCounter += 1
+                }
+
                 old.userData.goals[i].lastInterval = newIntervalStart;
                 old.userData.goals[i].intervalComplete = false;
-                old.userData.goals[i].daysCompleted = [false,false,false,false,false,false,false];
+                old.userData.goals[i].daysCompleted = [false, false, false, false, false, false, false];
+
                 return { ...old };
             });
 
@@ -103,8 +117,6 @@ const WeekView = ({ i, goal }) => {
                 dayCompleted();
             }
         }
-
-
     };
 
     return (
@@ -112,12 +124,12 @@ const WeekView = ({ i, goal }) => {
 
             {goalDays.map((day, j) => {
                 if (j === 7) return;
-
                 return (<span key={`${day}-box-${j}`}
                     className={`day-box ${(goalDays[7] || day) ? 'selected-day' : ''} ${(daysCompleted[j]) ? "completed-day" : ""}`}
                     style={{ animation: (animateDay === j) ? 'dayCheckoff 2s' : '' }}
                     onClick={() => handleDayCompleted(i, j)}>
                     <h4>{daysArray[j]}</h4>
+                    <span ref={pointsAnimation.current[j]} className="points-animation">+100</span>
                 </span>)
             })}
         </div>
@@ -125,3 +137,5 @@ const WeekView = ({ i, goal }) => {
 }
 
 export default WeekView;
+
+// style={{display: 'none'}}

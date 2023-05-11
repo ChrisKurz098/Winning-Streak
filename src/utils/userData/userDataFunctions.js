@@ -4,6 +4,7 @@ import moment from 'moment/moment';
 export const userDataTemplate = {
     score: 0,
     tokens: 0,
+    totalStreak: 0,
     rank: "C",
     vacationMode: false,
     goals: [],

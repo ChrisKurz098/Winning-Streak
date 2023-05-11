@@ -64,6 +64,11 @@
             width: 100%;
             text-align: center;
             transition: all 0.07s ease-in-out;
+            .points-animation{
+                animation: pointsAnimation 3s;
+                opacity: 0%;
+                position: absolute;
+            }
             &:hover {
                 transform-origin: center center;
                 transform: scale(1.1);
@@ -125,4 +130,11 @@
     90% {
         transform: scale(1.2) rotate(0deg);
     }
+}
+
+@keyframes pointsAnimation {
+    from {
+        opacity: 100%;
+    }
+    
 }
