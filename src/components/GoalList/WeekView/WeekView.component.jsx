@@ -91,10 +91,9 @@ const WeekView = ({ i, goal }) => {
             })
         };
 
-
         switch (true) {
             case (data.goals[i].intervalComplete): return;
-            case (!goalDays[todaysRelativeIndex] && !goalDays[7]): {
+            case (!goalDays[j] && !goalDays[7]): {
                 awardedScoreIndex = 2
                 createPopup({
                     message: 'This day is not a target day. You can count this day but you will receive half points',
