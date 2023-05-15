@@ -3,7 +3,7 @@ import PopUpMenu from "../components/PopUpMenu/PopUpMenu.component"
 
 const PopupMenuContext = createContext()
 
-export function PopupMenuContextProvider({ children }) {
+export const  PopupMenuContextProvider = ({ children }) => {
 
   const [state, setState] = useState({  message: '', answesrs: ['Yes', 'No'], onConfirm: null, onCancel: null, isOpen: false })
 
@@ -12,7 +12,8 @@ export function PopupMenuContextProvider({ children }) {
   }
 
   const closePopup = () => {
-    setState(old => ({...old, isOpen: false}))
+    //reset the state
+    setState({ message: '', answesrs: ['Yes', 'No'], onConfirm: null, onCancel: null, isOpen: false });
   }
   
   return (
@@ -24,6 +25,8 @@ export function PopupMenuContextProvider({ children }) {
 }
 
 
-export default function usePopup() {
+const usePopup = () => {
   return useContext(PopupMenuContext)
 }
+
+export default usePopup;

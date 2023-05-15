@@ -8,7 +8,6 @@ export const UserContext = createContext({
     currentUser: false,
     setCurrentUser: () => null,
 
-
 });
 
 export const UserProvider = ({ children }) => {

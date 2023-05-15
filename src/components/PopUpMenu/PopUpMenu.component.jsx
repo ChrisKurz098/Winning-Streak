@@ -3,6 +3,7 @@ import "./popUpMenu.styles.scss";
 import usePopup from "../../contexts/popup.context";
 import { useEffect, useRef } from "react";
 const PopUpMenu = ({ message, answesrs, onConfirm, onCancel, isOpen,  }) => {
+    
     const answerA = answesrs?.[0] ?? 'Yes';
     const answerB = answesrs?.[1] ?? 'No';
     const choiceB = useRef();
