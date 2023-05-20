@@ -4,9 +4,11 @@ import { daysArray } from "../../../utils/userData/userDataFunctions";
 
 import moment from "moment/moment";
 import usePopup from "../../../contexts/popup.context";
+import useSound from "../../../contexts/useSound.context";
 const WeekView = ({ i, goal }) => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const { createPopup } = usePopup();
+    const {playSound} = useSound();
 
     const [animateDay, setAnimateDay] = useState(null);
 
@@ -65,7 +67,6 @@ const WeekView = ({ i, goal }) => {
             numberOfDays,
         } = currentUser.userData.goals[i];
 
-
         let data = { ...currentUser.userData };
 
         let awardedScoreIndex = 0; //index of array for awarded score 0 best, 2 worst
@@ -75,6 +76,7 @@ const WeekView = ({ i, goal }) => {
 
         //Callback for confirmation
         const dayCompleted = () => {
+            playSound('congrats');
             setAnimateDay(j);
             setCurrentUser(old => {
                 data.goals[i].daysCompleted[j] = true;

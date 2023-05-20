@@ -7,13 +7,16 @@ import reportWebVitals from "./reportWebVitals";
 
 import { UserProvider } from "./contexts/user.context";
 import { PopupMenuContextProvider } from "./contexts/popup.context";
+import { SoundProvider } from "./contexts/useSound.context";
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
             <UserProvider>
                 <PopupMenuContextProvider>
+                    <SoundProvider>
                     <App />
+                    </SoundProvider>
                 </PopupMenuContextProvider>
             </UserProvider>
         </BrowserRouter>
