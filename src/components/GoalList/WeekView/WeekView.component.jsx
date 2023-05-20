@@ -6,7 +6,7 @@ import moment from "moment/moment";
 import usePopup from "../../../contexts/popup.context";
 const WeekView = ({ i, goal }) => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
-    const { createPopup, closePopup } = usePopup();
+    const { createPopup } = usePopup();
 
     const [animateDay, setAnimateDay] = useState(null);
 
@@ -21,7 +21,7 @@ const WeekView = ({ i, goal }) => {
         lastInterval,
     } = goal;
 
-    const today = moment().format("MM/DD/YYYY");
+    const today = moment().format("YYYY-MM-DD");
 
     //---Check for interval end on render
     useEffect(() => {
@@ -30,11 +30,11 @@ const WeekView = ({ i, goal }) => {
         setAnimateDay(null);
         //check the weekly interval and open all the days if interval has passed
         const weeksAgo = moment(today).diff(moment(lastInterval), 'weeks');
-        
+
         //Make condition for vacation mode
         if (weeksAgo >= weeklyInterval) {
-            const newIntervalStart = moment(lastInterval).add(7 * weeklyInterval, 'days').format("MM/DD/YYYY");
-            
+            const newIntervalStart = moment(lastInterval).add(7 * weeklyInterval, 'days').format("YYYY-MM-DD");
+
             setCurrentUser(old => {
                 //this makes sure to set the next interval to one week * interval from the last interval
                 if (old.userData.goals[i].intervalComplete) {
@@ -53,7 +53,7 @@ const WeekView = ({ i, goal }) => {
             });
 
         }
-
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -61,7 +61,6 @@ const WeekView = ({ i, goal }) => {
     const handleDayCompleted = (i, j) => {
 
         const {
-            daysCompleted,
             goalDays,
             numberOfDays,
         } = currentUser.userData.goals[i];
@@ -93,7 +92,7 @@ const WeekView = ({ i, goal }) => {
 
         switch (true) {
             case (data.goals[i].intervalComplete): return;
-            case (!goalDays[j] && !goalDays[7]): {
+            case (!goalDays[j] && !goalDays[7]):
                 awardedScoreIndex = 2
                 createPopup({
                     message: 'This day is not a target day. You can count this day but you will receive half points',
@@ -101,8 +100,8 @@ const WeekView = ({ i, goal }) => {
                     onConfirm: dayCompleted
                 })
                 return;
-            };
-            case (todaysRelativeIndex !== j): {
+                ;
+            case (todaysRelativeIndex !== j):
                 awardedScoreIndex = 1;
                 createPopup({
                     message: "Don't forget to check off your goals on the day-of to get double points!",
@@ -110,11 +109,10 @@ const WeekView = ({ i, goal }) => {
                     onConfirm: dayCompleted
                 })
                 return;
-            };
-            default: {
+                ;
+            default:
                 awardedScoreIndex = 0;
                 dayCompleted();
-            }
         }
     };
 
@@ -122,7 +120,7 @@ const WeekView = ({ i, goal }) => {
         <div className="day-box-container">
 
             {goalDays.map((day, j) => {
-                if (j === 7) return;
+                if (j === 7) return false;
                 return (<span key={`${day}-box-${j}`}
                     className={`day-box ${(goalDays[7] || day) ? 'selected-day' : ''} ${(daysCompleted[j]) ? "completed-day" : ""}`}
                     style={{ animation: (animateDay === j) ? 'dayCheckoff 2s' : '' }}
@@ -137,4 +135,3 @@ const WeekView = ({ i, goal }) => {
 
 export default WeekView;
 
-// style={{display: 'none'}}
