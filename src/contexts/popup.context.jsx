@@ -3,24 +3,26 @@ import PopUpMenu from "../components/PopUpMenu/PopUpMenu.component"
 
 const PopupMenuContext = createContext()
 
-export const  PopupMenuContextProvider = ({ children }) => {
+export const PopupMenuContextProvider = ({ children }) => {
 
-  const [state, setState] = useState({  message: '', answesrs: [], onConfirm: null, onCancel: null, isOpen: false })
+  const [state, setState] = useState({ message: '', answesrs: [], onConfirm: null, onCancel: null, isOpen: false, resolve: null })
 
-  const  createPopup = async (data) => {
+  const createPopup = async (data) => {
+    return new Promise(resolve => {
+      setState({ ...data, isOpen: true, resolve: resolve });
+    });
 
-    
   }
 
   const closePopup = () => {
     //reset the state
     setState({ message: '', answesrs: [], onConfirm: null, onCancel: null, isOpen: false });
   }
-  
+
   return (
-    <PopupMenuContext.Provider value={{createPopup, closePopup}}>
+    <PopupMenuContext.Provider value={{ createPopup, closePopup }}>
       {children}
-     <PopUpMenu {...state} />
+      <PopUpMenu {...state} />
     </PopupMenuContext.Provider>
   )
 }

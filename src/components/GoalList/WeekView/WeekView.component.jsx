@@ -72,10 +72,10 @@ const WeekView = ({ i, goal }) => {
         const todaysRelativeIndex = daysArray.indexOf(moment(today).format('dddd'));
 
         //Callback for confirmation
-        const dayCompleted = () => {
+        const dayCompleted = async () => {
             playSound('congrats');
             setAnimateDay(j);
-            setCurrentUser(old => {
+            setCurrentUser((old) => {
                 data.goals[i].daysCompleted[j] = true;
                 //check if goal is finished for interval
                 if (numberOfDays <= data.goals[i].daysCompleted.filter(day => (day)).length) {
@@ -83,34 +83,32 @@ const WeekView = ({ i, goal }) => {
                     data.goals[i].currentStreak += 1;
                     data.totalStreak += 1;
                 };
-
                 data.score += awardedScore[awardedScoreIndex];
-                const tokenAwardValue = 1000;
-                const tokenAwardRemainder = data.score % tokenAwardValue
-
-                //This determines when the user is rewared a token. Every tokenAwardValue points
-                if (awardedScore[awardedScoreIndex] > tokenAwardRemainder) {
-                    data.tokens += 1;
-                    createPopup({
-                        message: `You have erned another ${tokenAwardValue} points! You are awarded ONE token!`,
-                        answesrs: ["Yay!", "Yay!"],
-                    })
-                }
-
                 return { ...old, userData: data };
-            })
+            });
+
+            const tokenAwardValue = 1000;
+            const tokenAwardRemainder = data.score % tokenAwardValue
+
+            //This determines when the user is rewared a token. Every tokenAwardValue points
+            if (awardedScore[awardedScoreIndex] > tokenAwardRemainder) {
+                data.tokens += 1;
+                  await createPopup({
+                    message: `You have erned another ${tokenAwardValue} points! You are awarded ONE token!`,
+                    answesrs: ["Yay!", "Yay!"],
+                })
+            }
         };
 
         switch (true) {
             case (data.goals[i].intervalComplete): return;
             case (!goalDays[j] && !goalDays[7]):
                 awardedScoreIndex = 2
-                createPopup({
+                await createPopup({
                     message: 'This day is not a target day. You can count this day but you will receive half points',
                     answesrs: ["Select this day", "Don't select this day"],
                     onConfirm: dayCompleted
-                })
-              
+                });
                 return;
                 ;
             case (todaysRelativeIndex !== j):
@@ -119,12 +117,7 @@ const WeekView = ({ i, goal }) => {
                     message: "Don't forget to check off your goals on the day-of to get double points!",
                     answesrs: ["OK", "Cancel"],
                     onConfirm: dayCompleted
-                })
-                await createPopup({
-                    message: "WAITED",
-                    answesrs: ["OK", "Cancel"],
-                    onConfirm: dayCompleted
-                })
+                });
                 return;
                 ;
             default:
