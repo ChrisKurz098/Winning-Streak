@@ -5,6 +5,7 @@ export const userDataTemplate = {
     score: 0,
     tokens: 0,
     totalStreak: 0,
+    totalMisses: 0,
     rank: "C",
     vacationMode: false,
     goals: [],

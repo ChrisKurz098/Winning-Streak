@@ -41,7 +41,8 @@ const WeekView = ({ i, goal }) => {
                     old.userData.goals[i].missedGoalCounter = 0;
                 } else {
                     old.userData.goals[i].missedGoalCounter += 1;
-                    old.userData.goals[i].totalMissedGoalCounter += 1
+                    old.userData.goals[i].totalMissedGoalCounter += 1;
+                    old.userData.totalMisses += 1;
                 }
 
                 old.userData.goals[i].lastInterval = newIntervalStart;
@@ -71,7 +72,7 @@ const WeekView = ({ i, goal }) => {
 
         const todaysRelativeIndex = daysArray.indexOf(moment(today).format('dddd'));
 
-        //Callback for confirmation
+        //Callback for confirmation - createPopup callback can be async to allow for additional popUps
         const dayCompleted = async () => {
             playSound('congrats');
             setAnimateDay(j);
@@ -89,7 +90,6 @@ const WeekView = ({ i, goal }) => {
 
             const tokenAwardValue = 1000;
             const tokenAwardRemainder = data.score % tokenAwardValue
-
             //This determines when the user is rewared a token. Every tokenAwardValue points
             if (awardedScore[awardedScoreIndex] > tokenAwardRemainder) {
                 data.tokens += 1;
