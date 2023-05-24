@@ -4,21 +4,14 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
-import { UserProvider } from "./contexts/user.context";
-import { PopupMenuContextProvider } from "./contexts/popup.context";
-import { SoundProvider } from "./contexts/useSound.context";
+import MainProvider from "./contexts/mainProvider.contect";
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <UserProvider>
-                <PopupMenuContextProvider>
-                    <SoundProvider>
-                    <App />
-                    </SoundProvider>
-                </PopupMenuContextProvider>
-            </UserProvider>
+            <MainProvider>
+                <App />
+            </MainProvider>
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById("root")
