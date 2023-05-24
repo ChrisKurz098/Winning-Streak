@@ -7,8 +7,8 @@ import usePopup from "../../../contexts/popup.context";
 import useSound from "../../../contexts/useSound.context";
 const WeekView = ({ i, goal }) => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
-    const { createPopup } = usePopup();
-    const {playSound} = useSound();
+    const { createPopup, closePopup } = usePopup();
+    const { playSound } = useSound();
 
     const [animateDay, setAnimateDay] = useState(null);
 
@@ -27,8 +27,6 @@ const WeekView = ({ i, goal }) => {
 
     //---Check for interval end on render
     useEffect(() => {
-
-
         setAnimateDay(null);
         //check the weekly interval and open all the days if interval has passed
         const weeksAgo = moment(today).diff(moment(lastInterval), 'weeks');
@@ -40,7 +38,6 @@ const WeekView = ({ i, goal }) => {
             setCurrentUser(old => {
                 //this makes sure to set the next interval to one week * interval from the last interval
                 if (old.userData.goals[i].intervalComplete) {
-                    old.userData.totalStreak += 1;
                     old.userData.goals[i].missedGoalCounter = 0;
                 } else {
                     old.userData.goals[i].missedGoalCounter += 1;
@@ -56,11 +53,11 @@ const WeekView = ({ i, goal }) => {
 
         }
         //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [currentUser.userData.goals[i].intervalComplete])
 
 
 
-    const handleDayCompleted = (i, j) => {
+    const handleDayCompleted = async (i, j) => {
 
         const {
             goalDays,
@@ -81,12 +78,24 @@ const WeekView = ({ i, goal }) => {
             setCurrentUser(old => {
                 data.goals[i].daysCompleted[j] = true;
                 //check if goal is finished for interval
-                if (numberOfDays <= data.goals[i].daysCompleted.filter(x => (x)).length) {
+                if (numberOfDays <= data.goals[i].daysCompleted.filter(day => (day)).length) {
                     data.goals[i].intervalComplete = true;
                     data.goals[i].currentStreak += 1;
+                    data.totalStreak += 1;
                 };
 
                 data.score += awardedScore[awardedScoreIndex];
+                const tokenAwardValue = 1000;
+                const tokenAwardRemainder = data.score % tokenAwardValue
+
+                //This determines when the user is rewared a token. Every tokenAwardValue points
+                if (awardedScore[awardedScoreIndex] > tokenAwardRemainder) {
+                    data.tokens += 1;
+                    createPopup({
+                        message: `You have erned another ${tokenAwardValue} points! You are awarded ONE token!`,
+                        answesrs: ["Yay!", "Yay!"],
+                    })
+                }
 
                 return { ...old, userData: data };
             })
@@ -101,12 +110,18 @@ const WeekView = ({ i, goal }) => {
                     answesrs: ["Select this day", "Don't select this day"],
                     onConfirm: dayCompleted
                 })
+              
                 return;
                 ;
             case (todaysRelativeIndex !== j):
                 awardedScoreIndex = 1;
-                createPopup({
+                await createPopup({
                     message: "Don't forget to check off your goals on the day-of to get double points!",
+                    answesrs: ["OK", "Cancel"],
+                    onConfirm: dayCompleted
+                })
+                await createPopup({
+                    message: "WAITED",
                     answesrs: ["OK", "Cancel"],
                     onConfirm: dayCompleted
                 })

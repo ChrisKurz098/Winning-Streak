@@ -9,7 +9,7 @@ const mainProvider = createContext();
 const MainProvider = ({ children }) => {
 
     return (
-        <mainProvider.Provider>
+        <mainProvider.Provider value={{}}>
             <UserProvider>
                 <PopupMenuContextProvider>
                     <SoundProvider>

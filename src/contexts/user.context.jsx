@@ -28,12 +28,12 @@ export const UserProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        const updaeDatabase = async () => {
+        const updateDatabase = async () => {
             if (currentUser){
                 await updateRemoteUserData(userAuthId, currentUser.userData);
             }
         };
-        updaeDatabase();
+        updateDatabase();
     }, [currentUser]);
 
 

@@ -5,15 +5,16 @@ const PopupMenuContext = createContext()
 
 export const  PopupMenuContextProvider = ({ children }) => {
 
-  const [state, setState] = useState({  message: '', answesrs: ['Yes', 'No'], onConfirm: null, onCancel: null, isOpen: false })
+  const [state, setState] = useState({  message: '', answesrs: [], onConfirm: null, onCancel: null, isOpen: false })
 
-  const createPopup = (data) => {
-    setState({ ...data, isOpen: true })
+  const  createPopup = async (data) => {
+
+    
   }
 
   const closePopup = () => {
     //reset the state
-    setState({ message: '', answesrs: ['Yes', 'No'], onConfirm: null, onCancel: null, isOpen: false });
+    setState({ message: '', answesrs: [], onConfirm: null, onCancel: null, isOpen: false });
   }
   
   return (

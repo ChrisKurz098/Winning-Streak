@@ -7,6 +7,8 @@ const UserStats = () => {
 const {currentUser} = useContext(UserContext);
 
 const {score, rank, totalStreak, tokens} = currentUser.userData;
+
+
 if (currentUser) {
     return  (
         <div className="user-stats-container nowrap dashboard-item">
