@@ -1,14 +1,16 @@
 @import "../../utils/scssVars/variables.scss";
 
-.home-container{
+.home-container {
     margin-top: 1rem;
 
-
-    .goals-container{
+    .goals-container {
         width: 35%;
-
-    };
-    .stats-calander-container{
-        width: 65%
+        .add-goal-button-container {
+            display: flex;
+            justify-content: center;
+        }
+    }
+    .stats-calander-container {
+        width: 65%;
     }
 }

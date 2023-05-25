@@ -21,8 +21,11 @@ const Home = () => {
         <UserStats />
       </span>
       <span className="goals-container">
-      <GolaList />
-        <Button buttonType='button' type='button' onClick={() => { navigate('/new') }}> Add New Goal</Button>
+        <GolaList />
+        <span className="add-goal-button-container">
+          <Button buttonType='button' type='button' onClick={() => { navigate('/new') }}> Add New Goal</Button>
+        </span>
+
       </span>
     </div>
   );
