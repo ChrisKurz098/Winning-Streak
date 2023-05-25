@@ -1,5 +1,4 @@
-import { createContext, useState, useContext, useRef, useEffect } from "react";
-
+import { createContext, useState, useContext } from "react";
 
 const soundContext = createContext();
 
@@ -24,7 +23,6 @@ export const SoundProvider = ({ children }) => {
         setSoundFile(null);
         return;
     };
-
 
     return (
         <soundContext.Provider value={{ playSound, stopSound }}>

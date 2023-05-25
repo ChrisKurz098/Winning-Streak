@@ -2,7 +2,6 @@ import { useContext, useState } from 'react'
 import moment from 'moment/moment';
 import './createGoal.styles.scss'
 
-
 import { goalTypes } from '../../utils/userData/userDataFunctions';
 import { UserContext } from '../../contexts/user.context'
 import FormInput from '../../components/FormInput/FormInput.component';
@@ -10,13 +9,11 @@ import Button from '../../components/Button/Button.component';
 import { daysArray, defaultGoalState } from '../../utils/userData/userDataFunctions';
 import { useNavigate } from 'react-router-dom';
 
-
 const CreateGoal = () => {
     const { currentUser, setCurrentUser, userAuthId } = useContext(UserContext)
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
-
 
     const [formInput, setFormInput] = useState({
         typeSelect: 'other',
@@ -65,7 +62,6 @@ const CreateGoal = () => {
         setFormInput(old => ({ ...old, goalDays: goalDays, numberOfDays: numberOfDays }));
     };
 
-
     const submitGoal = async (event) => {
         event.preventDefault();
         setLoading(true);
@@ -77,10 +73,8 @@ const CreateGoal = () => {
         navigate('/');
     }
 
-
     return (
         <>
-
             <div className='create-goal-container'>
                 <form onSubmit={submitGoal}>
                     <h2 className='create-goal-header'>Create a new goal:</h2>
@@ -111,12 +105,10 @@ const CreateGoal = () => {
                                 )
                             })
                         }
-
                         <div style={{ display: (formInput.goalDays[7]) ? 'block' : 'none' }}>
                             <FormInput label='Days per weekly interval:' type='number' min="1" max="7" value={numberOfDays} name='numberOfDays' onChange={handleChange} />
                         </div>
                     </div>
-
                     <div className="buttons-container">
                         {(loading) ? (<Button type='button'>Updating...</Button>) : (<Button type='submit'>Add New Goal</Button>)}
                     </div>

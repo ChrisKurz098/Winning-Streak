@@ -2,30 +2,40 @@ import { useContext, useEffect } from "react";
 import { UserContext } from "../../contexts/user.context";
 
 import "./userStats.styles.scss"
+import usePopup from "../../contexts/popup.context";
 
 const UserStats = () => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
 
+    const { createPopup } = usePopup();
+
     const { score, rank, totalStreak, tokens, totalMisses } = currentUser.userData;
 
     useEffect(() => {
-        console.log('UPDATE RANK.....')
         let newRank = 0;
         const rankInterval = 5; //this decides how many completed goals are needed for a rank gain
         //change this from a grade to a title
-        const rankArray = ['F', 'D-', 'D', 'D+',
-            'C-', 'C', 'C+',
-            'B-', 'B', 'B+',
-            'A-', 'A', 'A+',
-            'S', 'SS', 'SSS'];
+        const rankArray =
+            ['F', 'D-', 'D', 'D+',
+                'C-', 'C', 'C+',
+                'B-', 'B', 'B+',
+                'A-', 'A', 'A+',
+                'S', 'SS', 'SSS'];
 
         const rankValueDiff = (totalStreak - (totalMisses * 2));
         let rankIndex = Math.floor((rankValueDiff / rankInterval) + 5);
         newRank = rankArray[rankIndex];
 
-        setCurrentUser(old => ({ ...old, userData: {...old.userData, rank: newRank} }))
-    }, [currentUser.userData.totalStreak, currentUser.userData.totalMisses])
+        if (rank !== newRank) updateRank(); // if rank is actually different than before, run async function
 
+        async function updateRank() {
+            await createPopup({
+                message: `Congratulations! You have advanced to rank ${newRank}`,
+                answers: ['Yay!']
+            });
+            setCurrentUser(old => ({ ...old, userData: { ...old.userData, rank: newRank } }));
+        };
+    }, [currentUser.userData.totalStreak, currentUser.userData.totalMisses])
 
     if (currentUser) {
         return (
@@ -33,6 +43,7 @@ const UserStats = () => {
                 <h2>{`${currentUser.displayName}'s Stats`}</h2>
                 <h3>{`Score: ${score}`}</h3>
                 <h3>{`Total Streaks: ${totalStreak}`}</h3>
+                <h3>{`Total Missed Goals: ${totalMisses}`}</h3>
                 <h3>{`Tokens: ${tokens}`}</h3>
                 <span>
                     <h3>Rank:</h3>
@@ -42,7 +53,7 @@ const UserStats = () => {
 
             </div>
         );
-    } else { return (<></>) }
+    } else { return (<></>) };
 
 }
 

@@ -1,13 +1,11 @@
 import { useContext, useEffect, useState, useRef } from "react"
 import { UserContext } from "../../../contexts/user.context";
 
-
-
-import "./goalListItems.styles.scss";
 import MaxGoalView from "../MaxGoalView/MaxGoalView.componet";
 import MinGoalView from "../MinGoalView/MinGoalView.componet";
 import usePopup from "../../../contexts/popup.context";
 
+import "./goalListItems.styles.scss";
 
 const GoalListItems = () => {
 
@@ -43,23 +41,16 @@ const GoalListItems = () => {
             message: 'Are you sure you want to delete this goal forever?',
             onConfirm: performDelete
         });
-
-
     };
-
 
     const selectDisplayToggle = (i) => {
         //this retruns the needed CSS display type depending on if the clicked taget is the selecteed goal
         return (selectedGoal === i) ? "block" : "none"
     };
 
-
-
     useEffect(() => {
         if (selectedGoal !== null) selectedEl.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
     }, [selectedGoal]);
-
-
 
     if (currentUser) {
         return (
@@ -70,8 +61,6 @@ const GoalListItems = () => {
                             ref={((selectedGoal === i) ? selectedEl : null)}
                             onClick={(e) => { handleExpand(i, e); }}
                             className={`goal-item-container ${(selectedGoal === i) ? "selected-item" : ""}`}>
-
-
 
                             <button type="button" onClick={() => handleDelete(i)} style={{ "display": selectDisplayToggle(i) }}>delete</button>
 

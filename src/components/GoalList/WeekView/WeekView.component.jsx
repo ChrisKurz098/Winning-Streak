@@ -5,16 +5,15 @@ import { daysArray } from "../../../utils/userData/userDataFunctions";
 import moment from "moment/moment";
 import usePopup from "../../../contexts/popup.context";
 import useSound from "../../../contexts/useSound.context";
+
 const WeekView = ({ i, goal }) => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
-    const { createPopup, closePopup } = usePopup();
+    const { createPopup } = usePopup();
     const { playSound } = useSound();
 
     const [animateDay, setAnimateDay] = useState(null);
 
     const pointsAnimation = useRef([createRef(), createRef(), createRef(), createRef(), createRef(), createRef(), createRef()]);
-
-
 
     const {
         daysCompleted,
@@ -32,44 +31,39 @@ const WeekView = ({ i, goal }) => {
         const weeksAgo = moment(today).diff(moment(lastInterval), 'weeks');
 
         //Make condition for vacation mode
+        //chwck if the interval has passed and if so update as needed
         if (weeksAgo >= weeklyInterval) {
             const newIntervalStart = moment(lastInterval).add(7 * weeklyInterval, 'days').format("YYYY-MM-DD");
-
             setCurrentUser(old => {
-                //this makes sure to set the next interval to one week * interval from the last interval
+                //if the interval was completed, no penalty, else penalty
                 if (old.userData.goals[i].intervalComplete) {
                     old.userData.goals[i].missedGoalCounter = 0;
                 } else {
                     old.userData.goals[i].missedGoalCounter += 1;
                     old.userData.goals[i].totalMissedGoalCounter += 1;
                     old.userData.totalMisses += 1;
-                }
-
+                };
+                //reset interval states
                 old.userData.goals[i].lastInterval = newIntervalStart;
                 old.userData.goals[i].intervalComplete = false;
                 old.userData.goals[i].daysCompleted = [false, false, false, false, false, false, false];
 
                 return { ...old };
             });
-
-        }
+        };
         //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentUser.userData.goals[i].intervalComplete])
-
+    }, []);
 
 
     const handleDayCompleted = async (i, j) => {
-
         const {
             goalDays,
             numberOfDays,
         } = currentUser.userData.goals[i];
 
         let data = { ...currentUser.userData };
-
         let awardedScoreIndex = 0; //index of array for awarded score 0 best, 2 worst
         const awardedScore = [200, 100, 50];
-
         const todaysRelativeIndex = daysArray.indexOf(moment(today).format('dddd'));
 
         //Callback for confirmation - createPopup callback can be async to allow for additional popUps
@@ -94,10 +88,10 @@ const WeekView = ({ i, goal }) => {
             if (awardedScore[awardedScoreIndex] > tokenAwardRemainder) {
                 data.tokens += 1;
                   await createPopup({
-                    message: `You have erned another ${tokenAwardValue} points! You are awarded ONE token!`,
-                    answesrs: ["Yay!", "Yay!"],
-                })
-            }
+                    message: `You have earned another ${tokenAwardValue} points! You are awarded ONE token!`,
+                    answers: ["Yay!"],
+                });
+            };
         };
 
         switch (true) {
@@ -106,7 +100,7 @@ const WeekView = ({ i, goal }) => {
                 awardedScoreIndex = 2
                 await createPopup({
                     message: 'This day is not a target day. You can count this day but you will receive half points',
-                    answesrs: ["Select this day", "Don't select this day"],
+                    answers: ["Select this day", "Don't select this day"], 
                     onConfirm: dayCompleted
                 });
                 return;
@@ -115,7 +109,7 @@ const WeekView = ({ i, goal }) => {
                 awardedScoreIndex = 1;
                 await createPopup({
                     message: "Don't forget to check off your goals on the day-of to get double points!",
-                    answesrs: ["OK", "Cancel"],
+                    answers: ["OK", "Cancel"],
                     onConfirm: dayCompleted
                 });
                 return;
@@ -123,12 +117,11 @@ const WeekView = ({ i, goal }) => {
             default:
                 awardedScoreIndex = 0;
                 dayCompleted();
-        }
+        };
     };
 
     return (
         <div className="day-box-container">
-
             {goalDays.map((day, j) => {
                 if (j === 7) return false;
                 return (<span key={`${day}-box-${j}`}

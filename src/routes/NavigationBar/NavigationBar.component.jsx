@@ -1,27 +1,19 @@
 import { useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
 import { Outlet, Link, useNavigate } from "react-router-dom";
-import { signOutUser, updateRemoteUserData } from "../../utils/firebase/firebase.utils";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 import './navigation.styles.scss';
 
 const NavigationBar = () => {
-    const { currentUser, setCurrentUser, userAuthId } = useContext(UserContext);
+    const { currentUser, setCurrentUser } = useContext(UserContext);
     const navigate = useNavigate();
   
     const handleLogOut = () => {
         signOutUser();
         setCurrentUser(false);
         navigate("/signin");
-    }
-
-
-
-    const testUpdate = (event) => {
-        event.preventDefault()
-        updateRemoteUserData(userAuthId, currentUser.userData );
-    }
-
+    };
 
     return (
         <>
@@ -43,10 +35,9 @@ const NavigationBar = () => {
                     )}
                 </div>
             </nav>
-
             <Outlet />
         </>
-    )
-}
+    );
+};
 
 export default NavigationBar;
