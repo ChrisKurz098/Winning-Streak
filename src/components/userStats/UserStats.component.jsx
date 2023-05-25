@@ -27,8 +27,6 @@ const UserStats = () => {
         let rankIndex = Math.floor((rankValueDiff / rankInterval) + 5);
         newRank = rankArray[rankIndex];
         const oldRankIndex = rankArray.indexOf(rank);
-        console.log(rankIndex)
-    
 
         if (oldRankIndex !== rankIndex) updateRank(); // if rank is actually different than before and isn't an F (0), run async function
 
