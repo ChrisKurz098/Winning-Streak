@@ -14,6 +14,7 @@ const UserStats = () => {
     useEffect(() => {
         let newRank = 0;
         const rankInterval = 5; //this decides how many completed goals are needed for a rank gain
+        const missesMultiplier = 2; //this decides how much a miss will dock your rank
         //change this from a grade to a title
         const rankArray =
             ['F', 'D-', 'D', 'D+',
@@ -22,15 +23,23 @@ const UserStats = () => {
                 'A-', 'A', 'A+',
                 'S', 'SS', 'SSS'];
 
-        const rankValueDiff = (totalStreak - (totalMisses * 2));
+        const rankValueDiff = (totalStreak - (totalMisses * missesMultiplier));
         let rankIndex = Math.floor((rankValueDiff / rankInterval) + 5);
         newRank = rankArray[rankIndex];
+        const oldRankIndex = rankArray.indexOf(rank);
+        console.log(rankIndex)
+    
 
-        if (rank !== newRank) updateRank(); // if rank is actually different than before, run async function
+        if (oldRankIndex !== rankIndex) updateRank(); // if rank is actually different than before and isn't an F (0), run async function
 
         async function updateRank() {
+            if ( oldRankIndex <= 0 && rankIndex < oldRankIndex) return;
+            if (newRank>rankArray.length-1) return;
+
+            const popUpMessage = (rankIndex > oldRankIndex) ? (`Congratulations! You have advanced to rank ${newRank}`) : (`Sorry, you have missed one or more of your goals ! You have dropped to rank ${newRank}.`);
+
             await createPopup({
-                message: `Congratulations! You have advanced to rank ${newRank}`,
+                message: popUpMessage,
                 answers: ['Yay!']
             });
             setCurrentUser(old => ({ ...old, userData: { ...old.userData, rank: newRank } }));

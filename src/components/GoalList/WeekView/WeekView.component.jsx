@@ -32,7 +32,7 @@ const WeekView = ({ i, goal }) => {
 
         //Make condition for vacation mode
         //chwck if the interval has passed and if so update as needed
-        if (weeksAgo >= weeklyInterval) {
+        if (1 >= 0) { //<-------------------------------------------------------------------------------------------------------------------------------------------------------
             const newIntervalStart = moment(lastInterval).add(7 * weeklyInterval, 'days').format("YYYY-MM-DD");
             setCurrentUser(old => {
                 //if the interval was completed, no penalty, else penalty

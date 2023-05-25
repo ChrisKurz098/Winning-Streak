@@ -7,13 +7,13 @@ import reportWebVitals from "./reportWebVitals";
 import MainProvider from "./contexts/mainProvider.contect";
 
 ReactDOM.render(
-    <React.StrictMode>
+    //<React.StrictMode>
         <BrowserRouter>
             <MainProvider>
                 <App />
             </MainProvider>
-        </BrowserRouter>
-    </React.StrictMode>,
+        </BrowserRouter>,
+   // </React.StrictMode>,
     document.getElementById("root")
 );
 
