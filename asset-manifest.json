@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Winning-Streak/static/css/main.205eebe8.css",
+    "main.js": "/Winning-Streak/static/js/main.e4be78a3.js",
+    "static/js/787.bf551be6.chunk.js": "/Winning-Streak/static/js/787.bf551be6.chunk.js",
+    "index.html": "/Winning-Streak/index.html",
+    "main.205eebe8.css.map": "/Winning-Streak/static/css/main.205eebe8.css.map",
+    "main.e4be78a3.js.map": "/Winning-Streak/static/js/main.e4be78a3.js.map",
+    "787.bf551be6.chunk.js.map": "/Winning-Streak/static/js/787.bf551be6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.205eebe8.css",
+    "static/js/main.e4be78a3.js"
+  ]
+}
