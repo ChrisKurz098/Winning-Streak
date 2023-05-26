@@ -30,7 +30,7 @@ export const SoundProvider = ({ children }) => {
             {
                 (soundFile) ? (
                     <audio key={key} autoPlay>
-                        <source src={`sounds/${soundFile}.wav`} type="audio/wav" />
+                        <source src={require(`../assets/sounds/${soundFile}.wav`)} type="audio/wav" />
                     </audio>
                 )
                     : ('')

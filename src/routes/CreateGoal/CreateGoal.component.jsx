@@ -16,7 +16,7 @@ const CreateGoal = () => {
     const navigate = useNavigate();
 
     const [formInput, setFormInput] = useState({
-        typeSelect: 'other',
+        typeSelect: 'Other',
         title: '',
         weeklyInterval: 1,
         numberOfDays: 1,
@@ -81,7 +81,7 @@ const CreateGoal = () => {
 
                     <label htmlFor='type-select' className='goal-type-label'>Goal Type</label>
                     <span className='select-container'>
-                        <img alt='goal icon' src={`icons/${formInput.typeSelect}.png`} />
+                        <img alt='goal icon' src={require(`../../assets/icons/${formInput.typeSelect}.png`)} />
                         <select id='type-select' name='typeSelect' required onChange={handleDropDownChange}>
                             {
                                 goalTypes.map((type, i) => {

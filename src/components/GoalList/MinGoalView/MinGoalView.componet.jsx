@@ -8,13 +8,12 @@ const MinGoalView = ({ goal }) => {
         intervalComplete
     } = goal;
 
-
     return (
         <div className="min-view-container">
 
             <span className="goal-type-check">
-                <img alt='goal icon' src={`icons/${typeSelect}.png`} />
-                <img alt="check mark" className="check-mark" src={`icons/checkmark.png`} style={{ opacity: (intervalComplete) ? '100%' : '0%', animation: (intervalComplete) ? '' : 'none' }} />
+            <img alt='goal icon' src={require(`../../../assets/icons/${typeSelect}.png`)} />
+                <img alt="check mark" className="check-mark" src={require(`../../../assets/icons/checkmark.png`)} style={{ opacity: (intervalComplete) ? '100%' : '0%', animation: (intervalComplete) ? '' : 'none' }} />
             </span>
             <h3 className="goal-list-title">{title}</h3>
        
