@@ -8,7 +8,7 @@ import MainProvider from "./contexts/mainProvider.contect";
 
 ReactDOM.render(
     //<React.StrictMode>
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <MainProvider>
                 <App />
             </MainProvider>
