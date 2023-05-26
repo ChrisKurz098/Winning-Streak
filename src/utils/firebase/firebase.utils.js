@@ -26,8 +26,8 @@ import { userDataTemplate } from "../userData/userDataFunctions";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyATXqKeF4xvPV19NOJJpoMebdwK34zKVHE",
-    authDomain: "winning-streak-64797.firebaseapp.com",
+    apiKey: "",
+    authDomain: "https://chriskurz098.github.io/Winning-Streak",
     projectId: "winning-streak-64797",
     storageBucket: "winning-streak-64797.appspot.com",
     messagingSenderId: "70058450446",
