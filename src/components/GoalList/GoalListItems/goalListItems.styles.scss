@@ -31,6 +31,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    span{
+        .goal-list-title-min{
+            display: none;
+        }
+    }
     .streak-display-container {
         display: flex;
         align-items: center;
@@ -53,6 +58,7 @@
         justify-content: space-between;
         border: 2px solid black;
         margin-bottom: 2rem;
+ 
 
         .day-box {
             background-color: white;
@@ -60,10 +66,12 @@
             -moz-user-select: none; /* Firefox */
             -ms-user-select: none; /* IE10+/Edge */
             user-select: none; /* Standard */
+            min-width: 9rem;
             border: 2px solid black;
             width: 100%;
             text-align: center;
             transition: all 0.07s ease-in-out;
+
             .points-animation{
                 animation: pointsAnimation 3s;
                 opacity: 0%;
@@ -138,3 +146,60 @@
     }
     
 }
+
+
+
+@media screen and (max-width: 1238px) {
+    .max-view-container {   
+            .day-box-container {
+                flex-wrap: wrap;
+            }
+        }
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .min-view-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        *{
+            margin: 0;
+            text-overflow: wrap;
+        }
+      
+        .goal-type-check{
+            width: 100%;
+            transform: scale(.7);
+            display: flex;
+            justify-content: space-between;
+            margin: 0;
+        }
+
+     
+
+        .streak-display-container {
+            display: flex;
+            align-items: center;
+            width: 33%;
+            align-self: center;
+            p {
+                margin: 0 0 0 3rem;
+                font-size: 2rem;
+            }
+        }
+    }
+
+.max-view-container {
+
+
+
+}
+
+}
+
+
+
