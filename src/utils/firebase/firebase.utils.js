@@ -22,11 +22,12 @@ import {
     updateDoc,
 } from "firebase/firestore";
 
+
 import { userDataTemplate } from "../userData/userDataFunctions";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "",
+    apiKey: process.env.apiKey,
     authDomain: "https://chriskurz098.github.io/Winning-Streak",
     projectId: "winning-streak-64797",
     storageBucket: "winning-streak-64797.appspot.com",
