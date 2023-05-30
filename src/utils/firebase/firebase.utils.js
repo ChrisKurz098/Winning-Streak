@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 
 import {
+    documentId,
     getFirestore,
     doc,
     getDoc,
@@ -53,7 +54,6 @@ export const db = getFirestore();
 export const createUserDocFromAuth = async (userAuth, additionalInfo) => {
     if (!userAuth) return;
     const userDocRef = doc(db, "users", userAuth.uid); //database, collection, unique id
-
     const userSnapshot = await getDoc(userDocRef);
 
     if (userSnapshot.exists()) {
@@ -81,11 +81,11 @@ export const createUserDocFromAuth = async (userAuth, additionalInfo) => {
 
 //----Update and read user data----//
 
-export const getRemoteUserData = async (userEmail) => {
+export const getRemoteUserData = async (userId) => {
     const usersDbRef = collection(db, "users");
 
     // Create a query against the collection.
-    const q = query(usersDbRef, where("email", "==", `${userEmail}`));
+    const q = query(usersDbRef, where(documentId(), "==", `${userId}`));
     const querySnapshot = await getDocs(q);
 
     let data;

@@ -20,7 +20,7 @@ export const UserProvider = ({ children }) => {
             if (user) {
                 await createUserDocFromAuth(user);
                 setUserAuthId(user.uid);
-                const dbUser = await getRemoteUserData(user.email);
+                const dbUser = await getRemoteUserData(user.uid);
                 setCurrentUser({ ...dbUser });
             }
         });
