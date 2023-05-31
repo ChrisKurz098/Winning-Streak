@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/Winning-Streak/static/css/main.205eebe8.css",
-    "main.js": "/Winning-Streak/static/js/main.89389ec3.js",
+    "main.css": "/Winning-Streak/static/css/main.13ef3d23.css",
+    "main.js": "/Winning-Streak/static/js/main.f5412121.js",
     "static/js/787.bf551be6.chunk.js": "/Winning-Streak/static/js/787.bf551be6.chunk.js",
     "static/media/congrats.wav": "/Winning-Streak/static/media/congrats.1213d43917d866cb5f52.wav",
     "static/media/checkmark.png": "/Winning-Streak/static/media/checkmark.0ad340259a8c140a65cd.png",
     "index.html": "/Winning-Streak/index.html",
-    "main.205eebe8.css.map": "/Winning-Streak/static/css/main.205eebe8.css.map",
-    "main.89389ec3.js.map": "/Winning-Streak/static/js/main.89389ec3.js.map",
+    "main.13ef3d23.css.map": "/Winning-Streak/static/css/main.13ef3d23.css.map",
+    "main.f5412121.js.map": "/Winning-Streak/static/js/main.f5412121.js.map",
     "787.bf551be6.chunk.js.map": "/Winning-Streak/static/js/787.bf551be6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.205eebe8.css",
-    "static/js/main.89389ec3.js"
+    "static/css/main.13ef3d23.css",
+    "static/js/main.f5412121.js"
   ]
 }
