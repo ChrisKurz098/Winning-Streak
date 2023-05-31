@@ -20,10 +20,14 @@
         height: 7rem;
         padding: 1rem;
     }
-    button {
+    .delete-button {
         position: absolute;
         top: 0.5rem;
         right: 0.5rem;
+    }
+
+    .expand-tab{
+        margin: 0 auto
     }
 }
 

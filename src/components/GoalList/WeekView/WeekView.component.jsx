@@ -128,7 +128,7 @@ const WeekView = ({ i, goal }) => {
                     className={`day-box ${(goalDays[7] || day) ? 'selected-day' : ''} ${(daysCompleted[j]) ? "completed-day" : ""}`}
                     style={{ animation: (animateDay === j) ? 'dayCheckoff 2s' : '' }}
                     onClick={() => handleDayCompleted(i, j)}>
-                    <h4>{daysArray[j]}</h4>
+                    <h4 className="day-box-name">{daysArray[j]}</h4>
                     <span ref={pointsAnimation.current[j]} className="points-animation">+100</span>
                 </span>)
             })}

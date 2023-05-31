@@ -17,9 +17,9 @@ const GoalListItems = () => {
     const selectedEl = useRef(null);
 
     const handleExpand = (i, e) => {
-
+        console.log(e.target.className)
         //this should be changed to only work when a tab element is clicked. element needs to be added first
-        if (e.target.className === 'min-view-container') {
+        if (e.target.className !== 'day-box selected-day ' &  e.target.className !== 'day-box-name' ) {
             setSelectedGoal(old => {
                 return (old === i) ? null : i;
             });
@@ -36,7 +36,7 @@ const GoalListItems = () => {
             setSelectedGoal(null);
             closePopup();
         }
-   //this will update the popup and make the popup visable. make the above function the callback with onConfirm
+        //this will update the popup and make the popup visable. make the above function the callback with onConfirm
         createPopup({
             message: 'Are you sure you want to delete this goal forever?',
             onConfirm: performDelete
@@ -59,10 +59,9 @@ const GoalListItems = () => {
                     return (
                         <li key={`${goal.title}-${i}`}
                             ref={((selectedGoal === i) ? selectedEl : null)}
-                            onClick={(e) => { handleExpand(i, e); }}
+                            onClick={(e) => { handleExpand(i, e) }}
                             className={`goal-item-container ${(selectedGoal === i) ? "selected-item" : ""}`}>
-
-                            <button type="button" onClick={() => handleDelete(i)} style={{ "display": selectDisplayToggle(i) }}>delete</button>
+                            <button type="button" className="delete-button" onClick={() => handleDelete(i)} style={{ "display": selectDisplayToggle(i) }}>delete</button>
 
                             <MinGoalView goal={goal} />
 
